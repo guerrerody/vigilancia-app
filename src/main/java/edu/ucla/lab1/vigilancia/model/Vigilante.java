@@ -12,7 +12,7 @@ public class Vigilante {
 	private String correo;
 	private String telf;
 	private LocalDate fecIng = LocalDate.now();
-	private Integer status;
+	private Integer status = 0;
 	
 	public Vigilante() {
 	}

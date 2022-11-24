@@ -58,7 +58,7 @@ public class MainView extends JFrame {
 		gc.gridx = 0;
 		gc.gridy = 0;
 		
-		var btn1 = new JButton("Menú");
+		var btn1 = new JButton("Vigilantes");
 		btn1.setBackground(UI.BG_COLOR2);
 		btn1.setForeground(UI.FG_COLOR);
 		panel.add(btn1, gc);
