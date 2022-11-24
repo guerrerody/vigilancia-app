@@ -32,7 +32,8 @@ CREATE TABLE cliente (
     telf_contac VARCHAR(12),
     status INTEGER NOT NULL DEFAULT 0,
 	CONSTRAINT pk_cliente PRIMARY KEY (id),
-	CONSTRAINT fk_cliente_tipo_cliente FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id)
+	CONSTRAINT fk_cliente_tipo_cliente FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente(id),
+	CONSTRAINT uk_cedula UNIQUE (cedula)
 );
 
 CREATE SEQUENCE IF NOT EXISTS servicio_id_seq
