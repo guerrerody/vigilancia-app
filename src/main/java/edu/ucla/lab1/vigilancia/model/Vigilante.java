@@ -3,7 +3,7 @@ package edu.ucla.lab1.vigilancia.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Vigilante {
+public class Vigilante extends Model {
 	private Integer id;
 	private String cedula;
 	private String nombre;
@@ -115,5 +115,17 @@ public class Vigilante {
 	@Override
 	public String toString() {
 		return cedula + " [" + getNombreCompleto() + "]";
+	}
+
+	@Override
+	public Object[] toRowTable() {
+	    return new Object[]{
+	    	this.getId(),
+	        this.getCedula(), 
+	        this.getNombreCompleto(),
+	        this.getFecNac(),
+	        this.getTelf(),
+	        this.getFecIng()
+        };
 	}
 }

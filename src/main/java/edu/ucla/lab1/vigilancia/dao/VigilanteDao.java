@@ -77,6 +77,7 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         stmt.setString(6, entity.getTelf());
         stmt.setDate(7, Date.valueOf(entity.getFecIng()));
         stmt.setInt(8, entity.getStatus());
+        stmt.setInt(9, entity.getId());
         
         stmt.executeUpdate();
 	}
@@ -109,4 +110,16 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         
         return entity;
 	}
+	
+    public ArrayList<Vigilante> searchByKey(String key, String word) throws SQLException {
+        ArrayList<Vigilante> entities = new ArrayList<>();
+        
+        var statement = conn.createStatement();
+        var query = "SELECT * FROM vigilante WHERE " + key + " ILIKE '%" + word + "%';";
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+            entities.add(toEntity(rs));
+        }
+        return entities;
+    }
 }
