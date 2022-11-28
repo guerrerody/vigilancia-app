@@ -33,8 +33,8 @@ public class VigilanteController extends ManagerController {
 					ERROR_MESSAGE) == YES_OPTION) {
 				for (int i = 0; i < selectedIds.length; i++) {
 					vigDao.deleteById(selectedIds[i]);
-					updateData();
 				}
+				updateData();
 			}
 		} catch (Exception e) {
 			view.showError(e);

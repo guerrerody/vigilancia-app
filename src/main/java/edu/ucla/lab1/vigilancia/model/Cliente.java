@@ -102,7 +102,13 @@ public class Cliente extends Model {
 
 	@Override
 	public Object[] toRowTable() {
-		return new Object[] { this.getId(), this.getNombre(), this.getNombreContac(), this.getTelfContac() };
+		return new Object[] {
+			this.getId(),
+			this.getTipoCliente().getNombre(), 
+			this.getNombre(), 
+			this.getNombreContac(), 
+			this.getTelfContac()
+		};
 	}
 
 }

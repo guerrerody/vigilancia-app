@@ -7,13 +7,18 @@ import java.util.Optional;
 import edu.ucla.lab1.vigilancia.model.Cliente;
 
 public class ClienteDao extends Dao<Cliente, Integer> {
+	
+	private static final String QUERY_SELECT_JOIN = "SELECT c.id AS id, c.tipo_cliente_id AS tipo_cliente_id,"
+			+ " c.nombre AS nombre, c.localidad AS localidad, c.direccion AS direccion, c.nombre_contac AS nombre_contac,"
+			+ " c.telf_contac AS telf_contac,c.status AS status, tc.nombre AS nombre_tipo_cliente"
+			+ " FROM cliente c LEFT JOIN tipo_cliente tc ON c.tipo_cliente_id = tc.id";
+	
 	@Override
 	public ArrayList<Cliente> getAll() throws SQLException {
 		ArrayList<Cliente> entities = new ArrayList<>();
 
 		var statement = conn.createStatement();
-		var query = "SELECT c.*, tc.nombre AS nombre_tipo_cliente FROM cliente c"
-				+ " LEFT JOIN tipo_cliente tc ON c.tipo_cliente_id = tc.id ORDER BY c.id;";
+		var query = QUERY_SELECT_JOIN + " ORDER BY c.id;";
 		ResultSet rs = statement.executeQuery(query);
 		while (rs.next()) {
 			entities.add(toEntity(rs));
@@ -25,8 +30,7 @@ public class ClienteDao extends Dao<Cliente, Integer> {
 	public Optional<Cliente> getById(Integer id) throws SQLException {
 		var statement = conn.createStatement();
 
-		var query = "SELECT c.*, tc.nombre AS nombre_tipo_cliente FROM cliente c"
-				+ " LEFT JOIN tipo_cliente tc ON c.tipo_cliente_id = tc.id WHERE c.id = " + id.toString();
+		var query = QUERY_SELECT_JOIN + " WHERE c.id = " + id.toString();
 		ResultSet rs = statement.executeQuery(query);
 		if (rs.next()) {
 			return Optional.ofNullable(toEntity(rs));
@@ -100,7 +104,7 @@ public class ClienteDao extends Dao<Cliente, Integer> {
 		entity.setId(rs.getInt("id"));
 		entity.setNombre(rs.getString("nombre"));
 		entity.setLocalidad(rs.getString("localidad"));
-		entity.setDireccion(rs.getString("dirrecion"));
+		entity.setDireccion(rs.getString("direccion"));
 		entity.setNombreContac(rs.getString("nombre_contac"));
 		entity.setTelfContac(rs.getString("telf_contac"));
 		entity.setStatus(rs.getInt("status"));
@@ -116,7 +120,7 @@ public class ClienteDao extends Dao<Cliente, Integer> {
 		ArrayList<Cliente> entities = new ArrayList<>();
 
 		var statement = conn.createStatement();
-		var query = "SELECT * FROM cliente WHERE " + key + " ILIKE '%" + word + "%';";
+		var query = QUERY_SELECT_JOIN + " WHERE c." + key + " ILIKE '%" + word + "%';";
 		ResultSet rs = statement.executeQuery(query);
 		while (rs.next()) {
 			entities.add(toEntity(rs));

@@ -19,6 +19,7 @@ public class ClienteView extends ManagerPaneView<Cliente> {
 	@Override
 	public void setTableModel() {
 		tableModel.addColumn("ID");
+		tableModel.addColumn("Tipo de Cliente");
 		tableModel.addColumn("Nombre Cliente");
 		tableModel.addColumn("Nombre Contacto");
 		tableModel.addColumn("Teléfono Contacto");

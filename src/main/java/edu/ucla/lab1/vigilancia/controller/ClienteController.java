@@ -33,8 +33,8 @@ public class ClienteController extends ManagerController {
 					"Eliminar Clientes", ERROR_MESSAGE) == YES_OPTION) {
 				for (int i = 0; i < selectedIds.length; i++) {
 					clienteDao.deleteById(selectedIds[i]);
-					updateData();
 				}
+				updateData();
 			}
 		} catch (Exception e) {
 			view.showError(e);
