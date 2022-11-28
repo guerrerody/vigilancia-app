@@ -1,11 +1,7 @@
 package edu.ucla.lab1.vigilancia.view;
 
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -154,7 +150,9 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
         jScrollPane1 = new JScrollPane();
         tblData = new JTable() {
-        	public boolean isCellEditable(int rowIndex, int colIndex) {
+        	private static final long serialVersionUID = 1L;
+
+			public boolean isCellEditable(int rowIndex, int colIndex) {
         		return false; // Desactivar la edición de la Tabla
 		}};
         jPanel1 = new JPanel();

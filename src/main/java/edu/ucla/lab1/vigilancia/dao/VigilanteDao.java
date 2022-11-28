@@ -13,7 +13,7 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         ArrayList<Vigilante> entities = new ArrayList<>();
         
         var statement = conn.createStatement();
-        var query = "SELECT * FROM vigilante;";
+        var query = "SELECT * FROM vigilante ORDER BY id;";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             entities.add(toEntity(rs));

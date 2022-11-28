@@ -14,17 +14,15 @@ import edu.ucla.lab1.vigilancia.view.popup.VigilantePopupView;
 
 public class VigilanteController extends ManagerController {
 	private VigilanteDao vigDao = new VigilanteDao();
-
-	VigilantePopupController popupController = new VigilantePopupController();
-	VigilantePopupController vigilantePopupController = new VigilantePopupController();
+	private VigilantePopupController popupController = new VigilantePopupController();
 
 	public VigilanteController() {
-		super();
+
 	}
 
 	@Override
 	public void actionAdd() {
-		vigilantePopupController.add(new VigilantePopupView(), this::updateData, view::showError);
+		popupController.add(new VigilantePopupView(), this::updateData, view::showError);
 	}
 
 	@Override
@@ -59,6 +57,7 @@ public class VigilanteController extends ManagerController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateData() {
 		try {
@@ -68,6 +67,7 @@ public class VigilanteController extends ManagerController {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void actionSearch() {
 		try {

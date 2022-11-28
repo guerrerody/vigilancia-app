@@ -3,23 +3,32 @@ package edu.ucla.lab1.vigilancia.controller;
 import javax.swing.*;
 
 import edu.ucla.lab1.vigilancia.utils.IconManager;
+import edu.ucla.lab1.vigilancia.view.ClienteView;
 import edu.ucla.lab1.vigilancia.view.HomeView;
 import edu.ucla.lab1.vigilancia.view.MainView;
 import edu.ucla.lab1.vigilancia.view.ManagerPaneView;
 import edu.ucla.lab1.vigilancia.view.MenuItem;
+import edu.ucla.lab1.vigilancia.view.TipoAlquilerView;
+import edu.ucla.lab1.vigilancia.view.TipoClienteView;
 import edu.ucla.lab1.vigilancia.view.VigilanteView;
 
 public class MainController {
 	// Vistas
 	private MainView view;
 	private HomeView homeView = new HomeView();
-	private ManagerPaneView vigilanteView = new VigilanteView();
+	private ManagerPaneView<?> vigilanteView = new VigilanteView();
+	private ManagerPaneView<?> tipoClienteView = new TipoClienteView();
+	private ManagerPaneView<?> tipoAlquilerView = new TipoAlquilerView();
+	private ManagerPaneView<?> clienteView = new ClienteView();
     
-    private JPanel[] cards = { homeView, vigilanteView };
+    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView };
     
     // Controladores
     private SideBarController sideBarController = new SideBarController();
     private ManagerController vigilanteController = new VigilanteController();
+    private ManagerController tipoClienteController = new TipoClienteController();
+    private ManagerController tipoAlquilerController = new TipoAlquilerController();
+    private ManagerController clienteController = new ClienteController();
     
     
 	public MainController(MainView view) {
@@ -66,16 +75,25 @@ public class MainController {
 
     public void onMenuChange(MenuItem item) {
         switch (item.getId()) {
-        	case "GCTC":
+        	case "GCTC": // Gestión de tipos de cliente
+        		view.setPanel(tipoClienteView);
+                tipoClienteController.setView(tipoClienteView);
+                tipoClienteController.updateData();
         		break;
-        	case "GCC":
+        	case "GCC": // Gestión de clientes
+                view.setPanel(clienteView);
+                clienteController.setView(clienteView);
+                clienteController.updateData();      		
         		break;
-            case "GV": // Gestión de Vigilantes
+            case "GV": // Gestión de vigilantes
                 view.setPanel(vigilanteView);
                 vigilanteController.setView(vigilanteView);
                 vigilanteController.updateData();
                 break;
-            case "GSTA":
+            case "GSTA": // Gestión de tipos de alquiler
+        		view.setPanel(tipoAlquilerView);
+                tipoAlquilerController.setView(tipoAlquilerView);
+                tipoAlquilerController.updateData();
                 break;
             case "GSS":
                 break;
