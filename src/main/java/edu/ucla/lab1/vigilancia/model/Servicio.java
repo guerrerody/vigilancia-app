@@ -1,6 +1,7 @@
 package edu.ucla.lab1.vigilancia.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Servicio extends Model {
 
@@ -9,6 +10,7 @@ public class Servicio extends Model {
     private LocalDate fechaFin;
     private String descr;
 	private Double costo;
+	private Integer turnosxDia;
 	private Integer status = 0;
 	private Cliente cliente = new Cliente();
 	
@@ -68,10 +70,26 @@ public class Servicio extends Model {
 		this.status = status;
 	}
 
+	public Integer getTurnosxDia() {
+		return turnosxDia;
+	}
+
+	public void setTurnosxDia(Integer turnosxDia) {
+		this.turnosxDia = turnosxDia;
+	}
+	
+	public int cantidadTurnos() {
+		long daysDiff = ChronoUnit.DAYS.between(fechaIn, fechaFin);
+		
+		//int cantTurnos = Math.round(daysDiff*turnosxDia);
+		int cantTurnos = Math.round(daysDiff*2);
+		
+		return cantTurnos;
+	}
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		return id + " [" + cliente.getNombre() + "]";
 	}
 
 	@Override

@@ -20,6 +20,8 @@ public class ServicioPopupView extends JFrame implements PopupView{
     
 	private JButton btnCancel;
     private JButton btnOK;
+    private JButton btnAddExtra;
+    private JButton btnAddVig;
     
     private JLabel jLabel1;
     private JLabel jLabel2;
@@ -31,6 +33,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
+    private JPanel jPanel4;
     
     private JComboBox<Cliente> cboCliente;
     private JSpinner spnFechaIn;
@@ -136,11 +139,14 @@ public class ServicioPopupView extends JFrame implements PopupView{
         
         btnCancel = new JButton();
         btnOK = new JButton();
+        btnAddExtra = new JButton();
+        btnAddVig = new JButton();
         
         jPanel1 = new JPanel();
         jPanel2 = new JPanel();
         jPanel3 = new JPanel();
-
+        jPanel4 = new JPanel();
+        
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
         jLabel3 = new JLabel();
@@ -294,7 +300,21 @@ public class ServicioPopupView extends JFrame implements PopupView{
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jPanel3.add(txtStatus, gridBagConstraints);
- 
+        
+        btnAddExtra.setText("Agregar Alquiler");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.weightx = 0.1;
+        jPanel3.add(btnAddExtra, gridBagConstraints);
+        
+        btnAddVig.setText("Agregar Vigilantes");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.weightx = 0.1;
+        jPanel3.add(btnAddVig, gridBagConstraints);
+        
         getContentPane().add(jPanel3, BorderLayout.CENTER);
 
         pack();

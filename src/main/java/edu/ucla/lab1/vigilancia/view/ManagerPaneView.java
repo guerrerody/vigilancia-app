@@ -112,6 +112,16 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         return tblData;
     }
 
+    public int[] getSelectedIdu() {
+    	int selectedRow = tblData.getSelectedRow();
+    	
+        int[] id = new int[2];
+        id[0] = (int) tblData.getValueAt(selectedRow, 0);
+        id[1] = (int) tblData.getValueAt(selectedRow, 1);
+        
+        return id;
+    }
+    
     public int[] getSelectedIds() {
         int selectedRows[] = tblData.getSelectedRows();
         int selectedIds[] = new int[selectedRows.length];

@@ -21,12 +21,13 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import edu.ucla.lab1.vigilancia.model.TipoAlquiler;
-import edu.ucla.lab1.vigilancia.model.TipoCliente;
+import edu.ucla.lab1.vigilancia.model.Servicio;
 import edu.ucla.lab1.vigilancia.utils.ErrorPopup;
 
 public class ServicioExtraPopupView  extends JFrame implements PopupView {
 private static final long serialVersionUID = 1L;
 	
+	DefaultComboBoxModel<Servicio> servicioComboBoxModel = new DefaultComboBoxModel<>();
 	DefaultComboBoxModel<TipoAlquiler> tipoAlquilerComboBoxModel = new DefaultComboBoxModel<>();
 
 	private JLabel lbTitle;
@@ -42,6 +43,7 @@ private static final long serialVersionUID = 1L;
 	private JPanel jPanel2;
 	private JPanel jPanel3;
 
+	private JComboBox<Servicio> cboServicio;
 	private JComboBox<TipoAlquiler> cboTipoAlquiler;
 	private JTextField txtCantidad;
 	
@@ -50,6 +52,7 @@ private static final long serialVersionUID = 1L;
         initComponents();
         initValidators();
         setLocationRelativeTo(null);
+        cboServicio.setModel(servicioComboBoxModel);
         cboTipoAlquiler.setModel(tipoAlquilerComboBoxModel);
     }
 
@@ -76,6 +79,14 @@ private static final long serialVersionUID = 1L;
 	public JLabel getLbTitle() {
 		return lbTitle;
 	}
+	
+    public DefaultComboBoxModel<Servicio> getServicioComboBoxModel() {
+        return servicioComboBoxModel;
+    }
+	
+    public JComboBox<Servicio> getCboServicio() {
+        return cboServicio;
+    }
 	
     public DefaultComboBoxModel<TipoAlquiler> getTipoAlquilerComboBoxModel() {
         return tipoAlquilerComboBoxModel;
@@ -111,6 +122,7 @@ private static final long serialVersionUID = 1L;
 
 		txtCantidad = new JTextField();
 		cboTipoAlquiler = new JComboBox<>();
+		cboServicio = new JComboBox<>();
 
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -152,7 +164,7 @@ private static final long serialVersionUID = 1L;
 		gridBagConstraints.gridy = 0;
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		jLabel1.setText("Cantidad:");
+		jLabel1.setText("Servicio:");
 		jPanel3.add(jLabel1, gridBagConstraints);
 
 		gridBagConstraints = new GridBagConstraints();
@@ -160,35 +172,42 @@ private static final long serialVersionUID = 1L;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
 		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		jLabel2.setText(":");
+		jLabel2.setText("Alquiler:");
 		jPanel3.add(jLabel2, gridBagConstraints);
+		
+		gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+		jLabel3.setText("Cantidad:");
+		jPanel3.add(jLabel3, gridBagConstraints);
 
 		// Inputs
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		jPanel3.add(txtCantidad, gridBagConstraints);
-
-		gridBagConstraints = new GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-		jPanel3.add(txt, gridBagConstraints);
-
 		
-        gridBagConstraints = new java.awt.GridBagConstraints();
+		gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel3.add(cboServicio, gridBagConstraints);
+
+		gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         jPanel3.add(cboTipoAlquiler, gridBagConstraints);
+        
+		gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.gridx = 1;
+		gridBagConstraints.gridy = 2;
+		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+		gridBagConstraints.weightx = 0.1;
+		gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+		jPanel3.add(txtCantidad, gridBagConstraints);
 
 		getContentPane().add(jPanel3, BorderLayout.CENTER);
 

@@ -12,6 +12,8 @@ import edu.ucla.lab1.vigilancia.view.TipoAlquilerView;
 import edu.ucla.lab1.vigilancia.view.TipoClienteView;
 import edu.ucla.lab1.vigilancia.view.VigilanteView;
 import edu.ucla.lab1.vigilancia.view.ServicioView;
+import edu.ucla.lab1.vigilancia.view.ServicioExtraView;
+import edu.ucla.lab1.vigilancia.view.FacturaView;
 
 public class MainController {
 	// Vistas
@@ -22,8 +24,10 @@ public class MainController {
 	private ManagerPaneView<?> tipoAlquilerView = new TipoAlquilerView();
 	private ManagerPaneView<?> clienteView = new ClienteView();
 	private ManagerPaneView<?> servicioView = new ServicioView();
+	private ManagerPaneView<?> servicioExtraView = new ServicioExtraView();
+	private ManagerPaneView<?> facturaView = new FacturaView();	
     
-    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView, servicioView };
+    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView, servicioView, servicioExtraView, facturaView };
     
     // Controladores
     private SideBarController sideBarController = new SideBarController();
@@ -32,6 +36,8 @@ public class MainController {
     private ManagerController tipoAlquilerController = new TipoAlquilerController();
     private ManagerController clienteController = new ClienteController();
     private ManagerController servicioController = new ServicioController();
+    private ManagerController servicioExtraController = new ServicioExtraController();
+    private ManagerController facturaController = new FacturaController();
     
     
 	public MainController(MainView view) {
@@ -62,6 +68,8 @@ public class MainController {
         MenuItem menuGS = new MenuItem("GS", im.getIcon("settings_25px.png"), "Gestión de Servicios");
         menuGS.addSubMenu(new MenuItem("GSTA", im.getIcon("settings_25px.png"), "Tipos de Alquiler"));
         menuGS.addSubMenu(new MenuItem("GSS", im.getIcon("settings_25px.png"), "Servicios"));
+        menuGS.addSubMenu(new MenuItem("SE", im.getIcon("settings_25px.png"), "Servicio Extra"));
+        menuGS.addSubMenu(new MenuItem("F", im.getIcon("settings_25px.png"), "Facturas"));
         
         sideBarController.addMenu(menuGDC, menuGV, menuGS);
         sideBarController.addMenuEvent(this::onMenuChange);
@@ -102,6 +110,16 @@ public class MainController {
             	view.setPanel(servicioView);
             	servicioController.setView(servicioView);
             	servicioController.updateData();
+                break;
+            case "SE":
+            	view.setPanel(servicioExtraView);
+            	servicioExtraController.setView(servicioExtraView);
+            	servicioExtraController.updateData();
+                break;
+            case "F":
+            	view.setPanel(facturaView);
+            	facturaController.setView(facturaView);
+            	facturaController.updateData();
                 break;
             default:
                 view.setPanel(homeView);

@@ -28,7 +28,8 @@ public class ServicioPopupController {
         view.getBtnCancel().addActionListener(evt -> view.dispose());
         view.getBtnOK().addActionListener(evt -> {
             try {
-                addServicio(view, new Servicio());
+                Servicio s = addServicio(view, new Servicio());
+                
                 view.dispose();
                 view.showMessage("Servicio agregado de forma exitosa");
                 sc.onSuccess();
@@ -36,6 +37,8 @@ public class ServicioPopupController {
                 ec.onError(ex);
             }
         });
+        
+        
     }
 	
 	public void edit(ServicioPopupView view, Servicio servicio, SuccessCallback sc, ErrorCallback ec) {
@@ -72,9 +75,11 @@ public class ServicioPopupController {
         });
     }
 
-    public void addServicio(ServicioPopupView view, Servicio s) throws Exception {
+    public Servicio addServicio(ServicioPopupView view, Servicio s) throws Exception {
     	loadFields(view, s);
         servDao.save(s);
+        
+        return s;
     }
 
     public void editServicio(ServicioPopupView view, Servicio s) throws Exception {

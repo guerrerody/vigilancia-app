@@ -6,11 +6,14 @@ import edu.ucla.lab1.vigilancia.dao.ServicioExtraDao;
 import edu.ucla.lab1.vigilancia.dao.TipoAlquilerDao;
 import edu.ucla.lab1.vigilancia.model.ServicioExtra;
 import edu.ucla.lab1.vigilancia.model.TipoAlquiler;
+import edu.ucla.lab1.vigilancia.dao.ServicioDao;
+import edu.ucla.lab1.vigilancia.model.Servicio;
 import edu.ucla.lab1.vigilancia.view.popup.ServicioExtraPopupView;
 
 public class ServicioExtraPopupController {
 	ServicioExtraDao servicioExtraDao = new ServicioExtraDao();
 	TipoAlquilerDao tipoAlquilerDao = new TipoAlquilerDao();
+	ServicioDao servDao = new ServicioDao();
 	JFrame previousView;
 
 	public void add(ServicioExtraPopupView view, SuccessCallback sc, ErrorCallback ec) {
@@ -47,7 +50,10 @@ public class ServicioExtraPopupController {
 
 		view.getTxtCantidad().setText(servicio_extra.getCant().toString());
 		view.getCboTipoAlquiler().setSelectedItem(servicio_extra.getTipoAlquiler());
-
+		view.getCboTipoAlquiler().setEnabled(false);
+		view.getCboServicio().setSelectedItem(servicio_extra.getServicio());
+		view.getCboServicio().setEnabled(false);
+		
 		view.getBtnCancel().addActionListener(evt -> view.dispose());
 		view.getBtnOK().setText("Actualizar");
 		view.getBtnOK().addActionListener(evt -> {
@@ -73,25 +79,38 @@ public class ServicioExtraPopupController {
 	}
 
 	protected void loadFields(ServicioExtraPopupView view, ServicioExtra se) throws Exception {
+		Servicio servicio = (Servicio) view.getCboServicio().getSelectedItem();
+		if (servicio == null || servicio.getId() == null) {
+			throw new Exception("Se requiere introducir el Servicio.");
+		}
+		
 		TipoAlquiler tipoAlquiler = (TipoAlquiler) view.getCboTipoAlquiler().getSelectedItem();
 		if (tipoAlquiler == null || tipoAlquiler.getId() == null) {
 			throw new Exception("Se requiere introducir el Tipo de Alquiler.");
 		}
-		int cantidad;
-		// Aqui no se que va, me estoy fijando de cliente
-
+		
+        String cantidad = view.getTxtCantidad().getText();
+        if (cantidad.isEmpty()) {
+            throw new Exception("Se requiere ingresar el Status.");
+        }
+		
+		se.setServicio(servicio);
 		se.setTipoAlquiler(tipoAlquiler);
-		se.setCantidad(cantidad);
+		se.setCant(Integer.parseInt(cantidad));
 		}
 
-	private void initComboBox(ServicioExtraPopupView view) { // Inicializar la lista de Tipos de Alquiler
+	private void initComboBox(ServicioExtraPopupView view) { // Inicializar listas
 		try {
 			view.getTipoAlquilerComboBoxModel().addElement(new TipoAlquiler()); // Tipo alquiler vacío
 			for (TipoAlquiler ta : tipoAlquilerDao.getAll()) {
 				view.getTipoAlquilerComboBoxModel().addElement(ta);
 			}
+			view.getServicioComboBoxModel().addElement(new Servicio()); // Servicio vacío
+			for (Servicio s : servDao.getAll()) {
+				view.getServicioComboBoxModel().addElement(s);
+			}
 		} catch (Exception e) {
 		}
 	}
-
+	
 }

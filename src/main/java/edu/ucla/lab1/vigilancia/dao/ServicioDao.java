@@ -43,7 +43,7 @@ public class ServicioDao extends Dao<Servicio, Integer> {
             throw new SQLException("El Servicio está vacío");
         }
         var query = "INSERT INTO servicio(client_id, fec_in, fec_fin, descr, costo, status)"
-                + " VALUES (?, ?, ?, ?, ?)";
+                + " VALUES (?, ?, ?, ?, ?, ?)";
 
         var stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setInt(1, entity.getCliente().getId());

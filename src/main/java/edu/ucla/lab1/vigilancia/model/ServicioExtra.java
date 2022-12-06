@@ -5,6 +5,7 @@ import java.util.Objects;
 public class ServicioExtra extends Model {
 	private Integer id;
 	private Integer cant;
+	private Servicio servicio = new Servicio();
 	private TipoAlquiler tipoAlquiler = new TipoAlquiler();
 
 	public ServicioExtra() {
@@ -20,11 +21,19 @@ public class ServicioExtra extends Model {
 	}
 
 	public Integer getCant() {
-		return id;
+		return cant;
 	}
 
 	public void setCant(Integer cant) {
 		this.cant = cant;
+	}
+	
+	public Servicio getServicio() {
+		return servicio;
+	}
+
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
 	}
 
 	public TipoAlquiler getTipoAlquiler() {
@@ -57,8 +66,9 @@ public class ServicioExtra extends Model {
 
 	@Override
 	public Object[] toRowTable() {
-		return new Object[] { 
-				this.getId(), 
+		return new Object[] {  
+				this.getServicio().getId(),
+				this.getTipoAlquiler().getId(),
 				this.getTipoAlquiler().getNombre(),
 				this.getCant(), 
 				};

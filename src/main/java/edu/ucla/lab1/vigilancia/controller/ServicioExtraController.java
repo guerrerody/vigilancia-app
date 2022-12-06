@@ -44,11 +44,11 @@ public class ServicioExtraController extends ManagerController {
 	@Override
 	public void actionEdit() {
 		try {
-			int selectedId = view.getSelectedId();
-			if (selectedId < 0) {
+			int[] selectedId = view.getSelectedIdu();
+			if (selectedId[0] < 0) {
 				throw new Exception("Seleccione el servicio extra para editar");
 			} else {
-				var v = servicioExtraDao.getById(selectedId)
+				var v = servicioExtraDao.getByIds(selectedId[0], selectedId[1])
 						.orElseThrow(() -> new Exception("El servicio extra que seleccionó NO es válido"));
 				popupController.edit(new ServicioExtraPopupView(), v, this::updateData, view::showError);
 			}
