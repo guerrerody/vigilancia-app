@@ -11,6 +11,7 @@ import edu.ucla.lab1.vigilancia.view.MenuItem;
 import edu.ucla.lab1.vigilancia.view.TipoAlquilerView;
 import edu.ucla.lab1.vigilancia.view.TipoClienteView;
 import edu.ucla.lab1.vigilancia.view.VigilanteView;
+import edu.ucla.lab1.vigilancia.view.ServicioView;
 
 public class MainController {
 	// Vistas
@@ -20,8 +21,9 @@ public class MainController {
 	private ManagerPaneView<?> tipoClienteView = new TipoClienteView();
 	private ManagerPaneView<?> tipoAlquilerView = new TipoAlquilerView();
 	private ManagerPaneView<?> clienteView = new ClienteView();
+	private ManagerPaneView<?> servicioView = new ServicioView();
     
-    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView };
+    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView, servicioView };
     
     // Controladores
     private SideBarController sideBarController = new SideBarController();
@@ -29,6 +31,7 @@ public class MainController {
     private ManagerController tipoClienteController = new TipoClienteController();
     private ManagerController tipoAlquilerController = new TipoAlquilerController();
     private ManagerController clienteController = new ClienteController();
+    private ManagerController servicioController = new ServicioController();
     
     
 	public MainController(MainView view) {
@@ -96,6 +99,9 @@ public class MainController {
                 tipoAlquilerController.updateData();
                 break;
             case "GSS":
+            	view.setPanel(servicioView);
+            	servicioController.setView(servicioView);
+            	servicioController.updateData();
                 break;
             default:
                 view.setPanel(homeView);
