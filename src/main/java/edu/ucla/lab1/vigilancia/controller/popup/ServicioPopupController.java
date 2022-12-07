@@ -38,7 +38,6 @@ public class ServicioPopupController {
             }
         });
         
-        
     }
 	
 	public void edit(ServicioPopupView view, Servicio servicio, SuccessCallback sc, ErrorCallback ec) {

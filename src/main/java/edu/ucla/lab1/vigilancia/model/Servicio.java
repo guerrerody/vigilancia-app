@@ -10,7 +10,7 @@ public class Servicio extends Model {
     private LocalDate fechaFin;
     private String descr;
 	private Double costo;
-	private Integer turnosxDia;
+	//private Integer turnosxDia;
 	private Integer status = 0;
 	private Cliente cliente = new Cliente();
 	
@@ -70,19 +70,23 @@ public class Servicio extends Model {
 		this.status = status;
 	}
 
-	public Integer getTurnosxDia() {
+	/*public Integer getTurnosxDia() {
 		return turnosxDia;
 	}
 
 	public void setTurnosxDia(Integer turnosxDia) {
 		this.turnosxDia = turnosxDia;
-	}
+	}*/
 	
 	public int cantidadTurnos() {
 		long daysDiff = ChronoUnit.DAYS.between(fechaIn, fechaFin);
 		
+		int cantTurnos = Math.round(daysDiff);
+		
+		if(cliente.getTipoCliente().getNombre() != "Tienda") {
+			cantTurnos *= 2;
+		}
 		//int cantTurnos = Math.round(daysDiff*turnosxDia);
-		int cantTurnos = Math.round(daysDiff*2);
 		
 		return cantTurnos;
 	}

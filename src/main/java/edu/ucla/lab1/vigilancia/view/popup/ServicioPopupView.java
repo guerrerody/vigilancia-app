@@ -168,7 +168,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
         jPanel1.setLayout(new GridBagLayout());
 
         lbTitle.setFont(new Font("Segoe UI", 1, 14));
-        lbTitle.setText("Nueva Servicio");
+        lbTitle.setText("Nuevo Servicio");
         jPanel1.add(lbTitle, new GridBagConstraints());
 
         getContentPane().add(jPanel1, BorderLayout.PAGE_START);

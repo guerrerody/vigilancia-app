@@ -1,8 +1,5 @@
 package edu.ucla.lab1.vigilancia.view;
 
-import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
-
 import javax.swing.DefaultComboBoxModel;
 
 import edu.ucla.lab1.vigilancia.model.Nomina;
@@ -10,17 +7,7 @@ import edu.ucla.lab1.vigilancia.model.Nomina;
 public class NominaView extends ManagerPaneView<Nomina>{
 	private static final long serialVersionUID = 1L;
 	
-	private JRadioButton radioBtnMensual;
-	private JRadioButton radioBtnSemanal;
-	
-    public JRadioButton getRadioBtnMensual() {
-        return radioBtnMensual;
-    }
-    public JRadioButton getRadioBtnSemanal() {
-        return radioBtnSemanal;
-    }
-	
-	String[] fieldsSearch = { "cedula", "nombre", "fecha" };
+	String[] fieldsSearch = { "vigilante_id", "fecha" };
 
 	public NominaView() {
         super();
@@ -32,7 +19,7 @@ public class NominaView extends ManagerPaneView<Nomina>{
 	@Override
 	public void setTableModel() {
 		tableModel.addColumn("ID");
-        tableModel.addColumn("Vigilante Id");
+        tableModel.addColumn("Vigilante");
         tableModel.addColumn("Fecha");
         tableModel.addColumn("Dias Trabajados");
         tableModel.addColumn("Horas Extra");
@@ -42,8 +29,6 @@ public class NominaView extends ManagerPaneView<Nomina>{
         tableModel.addColumn("Deducción");
         
         this.getCboSearchField().setModel(new DefaultComboBoxModel(fieldsSearch));
-        this.getRadioBtnMensual().setText("Mensual");
-        this.getRadioBtnSemanal().setText("Semanal");
 	}
 
 }

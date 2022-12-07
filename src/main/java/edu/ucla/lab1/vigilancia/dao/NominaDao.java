@@ -12,6 +12,12 @@ import edu.ucla.lab1.vigilancia.model.Nomina;
 import edu.ucla.lab1.vigilancia.model.Vigilante;
 
 public class NominaDao extends Dao<Nomina, Integer>{
+	
+	private static final String QUERY_SELECT_JOIN = "SELECT n.id AS id, n.vigilante_id AS vigilante_id,"
+			+ " n.fecha AS fecha, n.descr AS descr, n.dias_trab AS dias_trab, n.horas_extra AS horas_extra,"
+			+ " n.dias_falta AS dias_falta, n.sueldo_base AS sueldo_base, n.pago_extra AS pago_extra, n.deduccion AS deduccion,"
+			+ " v.nombre AS nombre_vigilante"
+			+ " FROM nomina n LEFT JOIN vigilante v ON n.vigilante_id = v.id";
 
 	VigilanteDao vigDao = new VigilanteDao();
 	
@@ -20,28 +26,21 @@ public class NominaDao extends Dao<Nomina, Integer>{
 		Nomina entity = new Nomina();
 		
 		entity.setId(rs.getInt("id"));
-		entity.setVigilanteId(rs.getInt("vigilante_id"));
         entity.setFecha(rs.getDate("fecha").toLocalDate());
         entity.setDesc(rs.getString("descr"));
-        entity.setDiasTrab(rs.getInt("dias_trab")); //SERIA DIAS TRABAJADOS
+        entity.setDiasTrab(rs.getInt("dias_trab"));
         entity.setHorasExtra(rs.getInt("horas_extra"));
         entity.setDiasFalta(rs.getInt("dias_falta"));
         entity.setSueldoBase(rs.getDouble("sueldo_base"));
         entity.setPagoExtra(rs.getDouble("pago_extra"));
         entity.setDeduccion(rs.getDouble("deduccion"));
         
+        var v = entity.getVigilante();
+        v.setId(rs.getInt("vigilante_id"));
+        v.setNombre(rs.getString("nombre_vigilante"));
+        
         return entity;
 		
-		/*id INTEGER NOT NULL DEFAULT nextval('nomina_id_seq'::regclass),
-	    vigilante_id INTEGER NOT NULL,
-	    fecha DATE,
-	    descr VARCHAR(255),
-	    diasextra INTEGER, EN EL MODELO LO CAMBIE A diasTrab (Dias trabajados)
-	    hrextra INTEGER,
-	    diasfaltas INTEGER,
-	    sueldob NUMERIC(10,2),
-	    pagoextra NUMERIC(10,2),
-	    deduccion NUMERIC(10,2),*/
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
 		ArrayList<Nomina> entities = new ArrayList<>();
         
         var statement = conn.createStatement();
-        var query = "SELECT * FROM nomina;";
+        var query = QUERY_SELECT_JOIN + " ORDER BY n.id;";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             entities.add(toEntity(rs));
@@ -61,7 +60,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
 	public Optional<Nomina> getById(Integer id) throws SQLException {
 		var statement = conn.createStatement();
         
-        var query = "SELECT * FROM nomina e WHERE e.id = " + id.toString();
+        var query = QUERY_SELECT_JOIN + " WHERE n.id = " + id.toString();
         ResultSet rs = statement.executeQuery(query);
         if (rs.next()) {
         	return Optional.ofNullable(toEntity(rs));
@@ -79,7 +78,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         var stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-        stmt.setInt(1, entity.getVigilanteId());
+        stmt.setInt(1, entity.getVigilante().getId());
         stmt.setDate(2, Date.valueOf(entity.getFecha()));
         stmt.setString(3, entity.getDesc());
         stmt.setInt(4, entity.getDiasTrab());
@@ -97,17 +96,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
         	}
         }
         return null;
-		
-        /*
-	    vigilante_id INTEGER NOT NULL,
-	    fecha DATE,
-	    descr VARCHAR(255),
-	    diasextra INTEGER, EN EL MODELO LO CAMBIE A diasTrab (Dias trabajados)
-	    hrextra INTEGER,
-	    diasfaltas INTEGER,
-	    sueldob NUMERIC(10,2),
-	    pagoextra NUMERIC(10,2),
-	    deduccion NUMERIC(10,2),*/
+        
 	}
 
 	@Override
@@ -115,33 +104,20 @@ public class NominaDao extends Dao<Nomina, Integer>{
 		if (entity == null) {
             throw new SQLException("La nomina está vacía");
         }
-        var query = "UPDATE nomina SET vigilante_id=?, fecha=?, descr=?, dias_trab=?, horas_extra=?, dias_falta=?, sueldo_base=?, pago_extra=?, deduccion=? WHERE id=?";
+        var query = "UPDATE nomina SET descr=?, dias_trab=?, horas_extra=?, dias_falta=?, sueldo_base=?, pago_extra=?, deduccion=? WHERE id=?";
         
         var stmt = conn.prepareStatement(query);
-        stmt.setInt(1, entity.getVigilanteId());
-        stmt.setDate(2, Date.valueOf(entity.getFecha()));
-        stmt.setString(3, entity.getDesc());
-        stmt.setInt(4, entity.getDiasTrab());
-        stmt.setInt(5, entity.getHorasExtra());
-        stmt.setInt(6, entity.getDiasFalta());
-        stmt.setDouble(7, entity.getSueldoBase());
-        stmt.setDouble(8, entity.getPagoExtra());
-        stmt.setDouble(9, entity.getDeduccion());
+        stmt.setString(1, entity.getDesc());
+        stmt.setInt(2, entity.getDiasTrab());
+        stmt.setInt(3, entity.getHorasExtra());
+        stmt.setInt(4, entity.getDiasFalta());
+        stmt.setDouble(5, entity.getSueldoBase());
+        stmt.setDouble(6, entity.getPagoExtra());
+        stmt.setDouble(7, entity.getDeduccion());
         
-        stmt.setInt(10, entity.getId());
+        stmt.setInt(8, entity.getId());
         
         stmt.executeUpdate();	
-        
-        /*
-	    vigilante_id INTEGER NOT NULL,
-	    fecha DATE,
-	    descr VARCHAR(255),
-	    diasextra INTEGER, EN EL MODELO LO CAMBIE A diasTrab (Dias trabajados)
-	    hrextra INTEGER,
-	    diasfaltas INTEGER,
-	    sueldob NUMERIC(10,2),
-	    pagoextra NUMERIC(10,2),
-	    deduccion NUMERIC(10,2),*/
 		
 	}
 
@@ -161,7 +137,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
         ArrayList<Nomina> entities = new ArrayList<>();
         
         var statement = conn.createStatement();
-        var query = "SELECT * FROM nomina WHERE " + key + " ILIKE '%" + word + "%';";
+        var query = QUERY_SELECT_JOIN + " WHERE n." + key + " ILIKE '%" + word + "%';";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             entities.add(toEntity(rs));
@@ -207,16 +183,6 @@ public class NominaDao extends Dao<Nomina, Integer>{
 				this.save(n);
 			}
 
-		/*
-	    vigilante_id INTEGER NOT NULL,
-	    fecha DATE,
-	    descr VARCHAR(255),
-	    diasextra INTEGER, EN EL MODELO LO CAMBIE A diasTrab (Dias trabajados)
-	    hrextra INTEGER,
-	    diasfaltas INTEGER,
-	    sueldob NUMERIC(10,2),
-	    pagoextra NUMERIC(10,2),
-	    deduccion NUMERIC(10,2),*/
 	}
 
 }

@@ -7,7 +7,7 @@ import edu.ucla.lab1.vigilancia.model.Servicio;
 public class ServicioView extends ManagerPaneView<Servicio> {
 	private static final long serialVersionUID = 1L;
 	
-	String[] fieldsSearch = { "id", "cliente", "fecha inicio", "fecha fin"};
+	String[] fieldsSearch = { "id", "client_id", "costo"};
 
 	public ServicioView() {
         super();

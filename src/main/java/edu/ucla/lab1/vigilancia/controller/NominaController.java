@@ -16,7 +16,7 @@ public class NominaController extends ManagerController {
 	private NominaDao nomDao = new NominaDao();
 	
 	NominaPopupController popupController = new NominaPopupController();
-	NominaPopupController NominaPopupController = new NominaPopupController();
+	NominaPopupController nominaPopupController = new NominaPopupController();
 	
 	
 	public NominaController() {
@@ -25,14 +25,7 @@ public class NominaController extends ManagerController {
 	
 	@Override
 	public void actionAdd() {
-		try {
-			if (JOptionPane.showConfirmDialog(null, "¿Generar nomina mensual?", "Generar",
-					ERROR_MESSAGE) == YES_OPTION) {
-				nomDao.generarNominaMensual();
-			}
-		} catch (Exception e) {
-			view.showError(e);
-		}
+		nominaPopupController.add(new NominaPopupView(true), this::updateData, view::showError);
 	}
 
 	@Override
@@ -61,7 +54,7 @@ public class NominaController extends ManagerController {
 			} else {
 				var v = nomDao.getById(selectedId)
 						.orElseThrow(() -> new Exception("La nomina seleccionada NO es válida"));
-				popupController.edit(new NominaPopupView(), v, this::updateData, view::showError);
+				popupController.edit(new NominaPopupView(false), v, this::updateData, view::showError);
 			}
 		} catch (Exception e) {
 			view.showError(e);
