@@ -50,7 +50,7 @@ public class NominaPopupController {
         view.getBtnCancel().addActionListener(evt -> view.dispose());
         view.getLbTitle().setText("Editar Nomina");
         
-        view.getCboVigilante().setSelectedItem(nomina.getVigilante());
+        view.getCboVigilante().setSelectedItem(nomina.getVigilante().toString());
 		view.getCboVigilante().setEnabled(false);
         view.getSpnFecha().setValue(Date.from(nomina.getFecha().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         view.getSpnFecha().setEnabled(false);
@@ -206,8 +206,8 @@ public class NominaPopupController {
     private void initComboBox(NominaPopupView view) {
         try {
         	view.getVigilanteComboBoxModel().addElement(new Vigilante()); 
-            for (Vigilante c : vigDao.getAll()) {
-                view.getVigilanteComboBoxModel().addElement(c);
+            for (Vigilante v : vigDao.getAll()) {
+                view.getVigilanteComboBoxModel().addElement(v);
             }
         } catch (Exception e) {
         }

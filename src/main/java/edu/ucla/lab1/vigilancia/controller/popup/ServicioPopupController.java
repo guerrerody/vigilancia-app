@@ -104,17 +104,11 @@ public class ServicioPopupController {
             throw new Exception("Se requiere ingresar el costo.");
         }
         
-        String status = view.getTxtStatus().getText();
-        if (status.isEmpty()) {
-            throw new Exception("Se requiere ingresar el Status.");
-        }
-        
         s.setCliente(cliente);
         s.setFechaIn(fechaIn);
         s.setFechaFin(fechaFin);
         s.setDescr(descr);
         s.setCosto(Double.parseDouble(costo));
-        s.setStatus(Integer.parseInt(status));
     }
     
     private void initComboBox(ServicioPopupView view) { // Inicializar la lista de Clientes

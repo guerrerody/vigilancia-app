@@ -53,6 +53,7 @@ public class NominaPopupView extends JFrame implements PopupView {
     	}
         initValidators();
         setLocationRelativeTo(null);
+        cboVigilante.setModel(vigilanteComboBoxModel);
     }
 	
 	@Override

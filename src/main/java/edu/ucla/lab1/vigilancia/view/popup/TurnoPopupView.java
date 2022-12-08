@@ -139,7 +139,15 @@ public class TurnoPopupView  extends JFrame implements PopupView {
 		return txtJust;
 	}
     
-    private void initValidators() {   
+    public JRadioButton getRdbtnMarcarFaltado() {
+		return rdbtnMarcarFaltado;
+	}
+
+	public void setRdbtnMarcarFaltado(JRadioButton rdbtnMarcarFaltado) {
+		this.rdbtnMarcarFaltado = rdbtnMarcarFaltado;
+	}
+
+	private void initValidators() {   
 	}
     
     private void initComponents() {

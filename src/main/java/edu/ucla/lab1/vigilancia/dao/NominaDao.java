@@ -145,7 +145,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
         return entities;
     }
 	
-	public void generarNominaMensual() {
+	/*public void generarNominaMensual() {
 		
 		LocalDate currentDate = LocalDate.now();
 		ArrayList <Vigilante> vig = vigDao.getAll();
@@ -183,6 +183,6 @@ public class NominaDao extends Dao<Nomina, Integer>{
 				this.save(n);
 			}
 
-	}
+		}*/
 
 }

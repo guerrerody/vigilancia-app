@@ -33,7 +33,6 @@ public class ServicioPopupView extends JFrame implements PopupView{
     private JPanel jPanel1;
     private JPanel jPanel2;
     private JPanel jPanel3;
-    private JPanel jPanel4;
     
     private JComboBox<Cliente> cboCliente;
     private JSpinner spnFechaIn;
@@ -145,7 +144,6 @@ public class ServicioPopupView extends JFrame implements PopupView{
         jPanel1 = new JPanel();
         jPanel2 = new JPanel();
         jPanel3 = new JPanel();
-        jPanel4 = new JPanel();
         
         jLabel1 = new JLabel();
         jLabel2 = new JLabel();
@@ -237,13 +235,13 @@ public class ServicioPopupView extends JFrame implements PopupView{
         jLabel5.setText("Costo Base Bs.:");
         jPanel3.add(jLabel5, gridBagConstraints);
         
-        gridBagConstraints = new GridBagConstraints();
+        /*gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jLabel6.setText("Status:");
-        jPanel3.add(jLabel6, gridBagConstraints);
+        jPanel3.add(jLabel6, gridBagConstraints);*/
 
         // Inputs
         
@@ -293,7 +291,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jPanel3.add(txtCosto, gridBagConstraints);
         
-        gridBagConstraints = new GridBagConstraints();
+        /*gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -313,7 +311,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         gridBagConstraints.weightx = 0.1;
-        jPanel3.add(btnAddVig, gridBagConstraints);
+        jPanel3.add(btnAddVig, gridBagConstraints);*/
         
         getContentPane().add(jPanel3, BorderLayout.CENTER);
 

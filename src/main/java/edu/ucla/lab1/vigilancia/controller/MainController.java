@@ -15,6 +15,7 @@ import edu.ucla.lab1.vigilancia.view.ServicioView;
 import edu.ucla.lab1.vigilancia.view.ServicioExtraView;
 import edu.ucla.lab1.vigilancia.view.FacturaView;
 import edu.ucla.lab1.vigilancia.view.NominaView;
+import edu.ucla.lab1.vigilancia.view.TurnoView;
 
 public class MainController {
 	// Vistas
@@ -27,9 +28,11 @@ public class MainController {
 	private ManagerPaneView<?> servicioView = new ServicioView();
 	private ManagerPaneView<?> servicioExtraView = new ServicioExtraView();
 	private ManagerPaneView<?> facturaView = new FacturaView();	
-	private ManagerPaneView<?> nominaView = new NominaView();	
+	private ManagerPaneView<?> nominaView = new NominaView();
+	private ManagerPaneView<?> turnoView = new TurnoView();
+	
     
-    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView, servicioView, servicioExtraView, facturaView, nominaView };
+    private JPanel[] cards = { homeView, vigilanteView, tipoClienteView, tipoAlquilerView, clienteView, servicioView, servicioExtraView, facturaView, nominaView, turnoView };
     
     // Controladores
     private SideBarController sideBarController = new SideBarController();
@@ -41,6 +44,7 @@ public class MainController {
     private ManagerController servicioExtraController = new ServicioExtraController();
     private ManagerController facturaController = new FacturaController();
     private ManagerController nominaController = new NominaController();
+    private ManagerController turnoController = new TurnoController();
     
 	public MainController(MainView view) {
 		this.view = view;
@@ -72,6 +76,7 @@ public class MainController {
         menuGS.addSubMenu(new MenuItem("GSTA", im.getIcon("settings_25px.png"), "Tipos de Alquiler"));
         menuGS.addSubMenu(new MenuItem("GSS", im.getIcon("settings_25px.png"), "Servicios"));
         menuGS.addSubMenu(new MenuItem("SE", im.getIcon("settings_25px.png"), "Servicio Extra"));
+        menuGS.addSubMenu(new MenuItem("ST", im.getIcon("settings_25px.png"), "Turnos"));
         menuGS.addSubMenu(new MenuItem("F", im.getIcon("settings_25px.png"), "Facturas"));
         
         sideBarController.addMenu(menuGDC, menuGV, menuGS);
@@ -104,6 +109,11 @@ public class MainController {
                 vigilanteController.setView(vigilanteView);
                 vigilanteController.updateData();
                 break;
+            case "VN": // Nomina
+            	view.setPanel(nominaView);
+            	nominaController.setView(nominaView);
+            	nominaController.updateData();
+            	break;
             case "GSTA": // Gestión de tipos de alquiler
         		view.setPanel(tipoAlquilerView);
                 tipoAlquilerController.setView(tipoAlquilerView);
@@ -119,15 +129,16 @@ public class MainController {
             	servicioExtraController.setView(servicioExtraView);
             	servicioExtraController.updateData();
                 break;
+            case "ST": // Turnos
+            	view.setPanel(turnoView);
+            	turnoController.setView(turnoView);
+            	turnoController.updateData();
+                break;
             case "F": // Facturas
             	view.setPanel(facturaView);
             	facturaController.setView(facturaView);
             	facturaController.updateData();
                 break;
-            case "VN":
-            	view.setPanel(nominaView);
-            	nominaController.setView(nominaView);
-            	nominaController.updateData();
             default:
                 view.setPanel(homeView);
         }

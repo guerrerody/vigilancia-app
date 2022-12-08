@@ -88,12 +88,14 @@ public class Turno extends Model {
 	public Object[] toRowTable() {
 		return new Object [] {
 				this.getId(),
+				this.getVigilante().getId(),
+				this.getServicio().getId(),
 				this.getFec_in(),
+				this.getHor_in(),
 				this.getFec_fin(),
+				this.getHor_fin(),
 				this.getFalta(),
 				this.getJust(),
-				this.getVigilante().getId(),
-				this.getServicio().getId()
 			};
 	}
 	
