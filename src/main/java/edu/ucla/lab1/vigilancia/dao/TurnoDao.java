@@ -58,15 +58,16 @@ public class TurnoDao extends Dao<Turno, Integer> {
         if (stmt.executeUpdate() == 1) {
         	var rs = stmt.getGeneratedKeys();
         	
-        	DetalleServicio ds = new DetalleServicio();
-        	ds.setVigilante(entity.getVigilante());
-        	ds.setServicio(entity.getServicio());
-        	ds.setTurno(entity);
-        	
-        	detserDao.save(ds);
-        	
         	if (rs.next()) {
         		entity.setId(rs.getInt("id"));
+        		
+        		DetalleServicio ds = new DetalleServicio();
+            	ds.setVigilante(entity.getVigilante());
+            	ds.setServicio(entity.getServicio());
+            	ds.setTurno(entity);
+            	
+            	detserDao.save(ds);
+            	
         		return entity;
         	}
         }
@@ -126,10 +127,40 @@ public class TurnoDao extends Dao<Turno, Integer> {
 	}
 	
     public ArrayList<Turno> searchByKey(String key, String word) throws SQLException {
-        ArrayList<Turno> entities = new ArrayList<>();
+    	ArrayList<Turno> entities = new ArrayList<>();
         
         var statement = conn.createStatement();
-        var query = QUERY_SELECT_JOIN + " WHERE t." + key + " ILIKE '%" + word + "%';";
+        var query = QUERY_SELECT_JOIN;
+        if((key == "servicio_id") || (key == "vigilante_id")) {
+        	query += " WHERE ds." + key + " = " + word + " ;";
+        } else {
+        	query += " WHERE t." + key + " ILIKE '%" + word + "%';";
+        }
+        ResultSet rs = statement.executeQuery(query);
+        while (rs.next()) {
+            entities.add(toEntity(rs));
+        }
+        return entities;
+    }
+    
+    public Optional<Turno> getByIds(Integer id, Integer idv) throws SQLException {
+        
+    	var statement = conn.createStatement();
+        
+        var query = QUERY_SELECT_JOIN + " WHERE t.id = " + id.toString() + " AND ds.vigilante_id = " + idv.toString();
+        ResultSet rs = statement.executeQuery(query);
+        if (rs.next()) {
+        	return Optional.ofNullable(toEntity(rs));
+        }
+        return Optional.empty();
+    }
+    
+    public ArrayList<Turno> getDiasTrabVigilante(Integer idv, String fechaIn, String fechaFin) throws SQLException {
+    	ArrayList<Turno> entities = new ArrayList<>();
+    	
+    	var statement = conn.createStatement();
+        
+        var query = QUERY_SELECT_JOIN + " WHERE ds.vigilante_id = " + idv.toString() + " AND (t.fec_in BETWEEN '" + fechaIn + "' AND '" + fechaFin + "');";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             entities.add(toEntity(rs));

@@ -1,10 +1,13 @@
 package edu.ucla.lab1.vigilancia.dao;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
 import edu.ucla.lab1.vigilancia.model.Servicio;
+import edu.ucla.lab1.vigilancia.model.Turno;
 
 public class ServicioDao extends Dao<Servicio, Integer> {
 	
@@ -12,6 +15,8 @@ public class ServicioDao extends Dao<Servicio, Integer> {
 			+ " s.fec_in AS fec_in, s.fec_fin AS fec_fin, s.descr AS descr, s.costo AS costo, s.status AS status,"
 			+ " c.nombre AS nombre_cliente"
 			+ " FROM servicio s LEFT JOIN cliente c ON s.client_id = c.id";
+	
+	TurnoDao turDao= new TurnoDao();
 	
 	public ArrayList<Servicio> getAll() throws SQLException {
         ArrayList<Servicio> entities = new ArrayList<>();
@@ -55,8 +60,31 @@ public class ServicioDao extends Dao<Servicio, Integer> {
         
         if (stmt.executeUpdate() == 1) {
         	var rs = stmt.getGeneratedKeys();
+        	
         	if (rs.next()) {
         		entity.setId(rs.getInt("id"));
+        		
+        		LocalDate fec_in = entity.getFechaIn();
+        		LocalTime hor_in;
+        		LocalTime hor_fin;
+        		if(entity.getCliente().getTipoCliente().getNombre() != "Tienda") {
+        			hor_in = new LocalTime().now();
+        		}
+            	for(int i = 0; i < entity.cantidadTurnos(); i++) {
+                	Turno t = new Turno();
+                	
+                	t.setServicio(entity);
+                	t.setFec_in(fec_in);
+                	t.setHor_in(null);
+                	t.setFec_fin(fec_in);
+                	t.setHor_fin(null);
+                	t.setFalta(false);
+                	t.setJust(null);
+                	turDao.save(t);
+                	
+                	fec_in.plusDays(1);
+            	}
+        		
         		return entity;
         	}
         }

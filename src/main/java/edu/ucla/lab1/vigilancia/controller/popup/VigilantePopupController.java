@@ -54,7 +54,8 @@ public class VigilantePopupController {
 				Date.from(vigilante.getFecNac().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         view.getTxtCorreo().setText(vigilante.getCorreo());
         view.getTxtTelefono().setText(vigilante.getTelf());
-
+        view.getTxtSueldoBase().setText(vigilante.getSueldoBase().toString());
+        
         view.getBtnOK().setText("Actualizar");
         view.getBtnOK().addActionListener(evt -> {
             try {
@@ -96,6 +97,11 @@ public class VigilantePopupController {
         if (Period.between(fecNac, LocalDate.now()).getYears() <= 18) {
             throw new Exception("Se requiere introducir una fecha de nacimiento válida (mayor a 18 años).");
         }
+        
+        Double sueldoBase = Double.parseDouble(view.getTxtSueldoBase().getText().trim());
+        if (sueldoBase.isNaN()) {
+            throw new Exception("Se requiere introducir el sueldo base del Vigilante.");
+        }
         String correo = view.getTxtCorreo().getText().trim();
         String telefono = view.getTxtTelefono().getText().trim();
         
@@ -105,5 +111,6 @@ public class VigilantePopupController {
         v.setFecNac(fecNac);
         v.setCorreo(correo);
         v.setTelf(telefono);
+        v.setSueldoBase(sueldoBase);
     }
 }

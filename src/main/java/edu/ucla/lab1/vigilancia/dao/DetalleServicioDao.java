@@ -37,7 +37,7 @@ public class DetalleServicioDao extends Dao<DetalleServicio, Integer> {
         if (entity == null) {
             throw new SQLException("El DetalleServicio está vacío");
         }
-        var query = "INSERT INTO turno( vigilante_id, servicio_id, turno_id )"
+        var query = "INSERT INTO detalle_servicio( vigilante_id, servicio_id, turno_id )"
                 + " VALUES (?, ?, ?)";
 
         var stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -60,7 +60,7 @@ public class DetalleServicioDao extends Dao<DetalleServicio, Integer> {
         if (entity == null) {
             throw new SQLException("El DetalleServicio está vacío");
         }
-        var query = "UPDATE turno SET vigilante_id=?, servicio_id=?, turno_id=?	WHERE turno_id=?";
+        var query = "UPDATE detalle_servicio SET vigilante_id=?, servicio_id=?, turno_id=?	WHERE turno_id=?";
         
         var stmt = conn.prepareStatement(query);
         stmt.setInt(1, entity.getVigilante().getId());

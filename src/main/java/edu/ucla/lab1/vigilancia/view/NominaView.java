@@ -24,11 +24,13 @@ public class NominaView extends ManagerPaneView<Nomina>{
         tableModel.addColumn("Dias Trabajados");
         tableModel.addColumn("Horas Extra");
         tableModel.addColumn("Faltas");
-        tableModel.addColumn("Sueldo Base");
+        tableModel.addColumn("Sueldo x Dia");
         tableModel.addColumn("Pago Extra");
         tableModel.addColumn("Deducción");
         
         this.getCboSearchField().setModel(new DefaultComboBoxModel(fieldsSearch));
 	}
+	
+	
 
 }

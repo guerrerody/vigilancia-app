@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import edu.ucla.lab1.vigilancia.model.Nomina;
+import edu.ucla.lab1.vigilancia.model.Turno;
 import edu.ucla.lab1.vigilancia.model.Vigilante;
 
 public class NominaDao extends Dao<Nomina, Integer>{
@@ -16,10 +17,11 @@ public class NominaDao extends Dao<Nomina, Integer>{
 	private static final String QUERY_SELECT_JOIN = "SELECT n.id AS id, n.vigilante_id AS vigilante_id,"
 			+ " n.fecha AS fecha, n.descr AS descr, n.dias_trab AS dias_trab, n.horas_extra AS horas_extra,"
 			+ " n.dias_falta AS dias_falta, n.sueldo_base AS sueldo_base, n.pago_extra AS pago_extra, n.deduccion AS deduccion,"
-			+ " v.nombre AS nombre_vigilante"
+			+ " v.nombre AS nombre_vigilante, v.cedula AS cedula_vigilante"
 			+ " FROM nomina n LEFT JOIN vigilante v ON n.vigilante_id = v.id";
 
 	VigilanteDao vigDao = new VigilanteDao();
+	TurnoDao turDao= new TurnoDao(); 
 	
 	@Override
 	public Nomina toEntity(ResultSet rs) throws SQLException {
@@ -38,6 +40,7 @@ public class NominaDao extends Dao<Nomina, Integer>{
         var v = entity.getVigilante();
         v.setId(rs.getInt("vigilante_id"));
         v.setNombre(rs.getString("nombre_vigilante"));
+        v.setCedula(rs.getString("cedula_vigilante"));
         
         return entity;
 		
@@ -145,44 +148,72 @@ public class NominaDao extends Dao<Nomina, Integer>{
         return entities;
     }
 	
-	/*public void generarNominaMensual() {
+	public void generarNominaMensual() {
 		
 		LocalDate currentDate = LocalDate.now();
-		ArrayList <Vigilante> vig = vigDao.getAll();
-		
-		for(int i = 0; i < vig.size(); i++) {
-			vigDao.getById(i);
-			
-			Nomina n = new Nomina();
-			n.setVigilanteId(vig.get(i).getId());
-			n.setFecha(currentDate);
-			n.setDiasTrab(); //Obtengo de turno
-			n.setHorasExtra(); //Obtengo de turno
-			n.setDiasFalta(); //Obtengo de turno
-			n.setSueldoBase(vig.get(i).getSueldoBase()); //Falta en vigilante
-			n.calcDeduccion();
-			this.save(n);
-		}
-	}
-		
-		public Nomina obtenerNominaSemanal(String vigilante) {
-			LocalDate currentDate = LocalDate.now();
+		LocalDate nextDate = currentDate.plusMonths(1);
+		try {
 			ArrayList <Vigilante> vig = vigDao.getAll();
 			
 			for(int i = 0; i < vig.size(); i++) {
-				vigDao.getById(i);
-				
+				int diasFalta = 0;
 				Nomina n = new Nomina();
-				n.setVigilanteId(vig.get(i).getId());
+				
+				n.setVigilante(vig.get(i));
 				n.setFecha(currentDate);
-				n.setDiasTrab(); //Obtengo de turno
-				n.setHorasExtra(); //Obtengo de turno
-				n.setDiasFalta(); //Obtengo de turno
-				n.setSueldoBase(vig.get(i).getSueldoBase()); //Falta en vigilante
+				ArrayList<Turno> t = turDao.getDiasTrabVigilante(n.getVigilante().getId(), currentDate.toString(), nextDate.toString());
+				for(int j = 0; j < t.size(); j++) {
+					if(t.get(j).getFalta() == true) {
+						if(t.get(j).getJust().isEmpty() || t.get(j).getJust().isBlank()) {
+							diasFalta += 1;
+						}
+					}
+				}
+				n.setDiasTrab(t.size());
+				n.setHorasExtra(5*t.size());
+				n.setDiasFalta(diasFalta);
+				n.setSueldoBase(n.getVigilante().getSueldoBase());
 				n.calcDeduccion();
 				this.save(n);
 			}
-
-		}*/
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+	}
+		
+	public ArrayList<Nomina> obtenerNominaSemanal() {
+		LocalDate currentDate = LocalDate.now();
+		LocalDate nextDate = currentDate.plusWeeks(1);
+		
+		ArrayList <Nomina> nominaSem = new ArrayList<Nomina>();
+		try {
+			ArrayList <Vigilante> vig = vigDao.getAll();
+				
+			for(int i = 0; i < vig.size(); i++) {
+				int diasFalta = 0;
+				Nomina n = new Nomina();
+				
+				n.setVigilante(vig.get(i));
+				n.setFecha(currentDate);
+				ArrayList<Turno> t = turDao.getDiasTrabVigilante(n.getVigilante().getId(), currentDate.toString(), nextDate.toString());
+				for(int j = 0; j < t.size(); j++) {
+					if(t.get(j).getFalta() == true) {
+						if(t.get(j).getJust().isEmpty() || t.get(j).getJust().isBlank()) {
+							diasFalta += 1;
+						}
+					}
+				}
+				n.setDiasTrab(t.size());
+				n.setHorasExtra(5*t.size());
+				n.setDiasFalta(diasFalta);
+				n.setSueldoBase(vig.get(i).getSueldoBase());
+				n.calcDeduccion();
+				nominaSem.add(n);
+			}
+		} catch (SQLException e) {
+			e.getMessage();
+		}
+		return nominaSem;
+	}
 
 }

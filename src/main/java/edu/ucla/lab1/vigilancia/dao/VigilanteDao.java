@@ -38,7 +38,7 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         if (entity == null) {
             throw new SQLException("El Vigilante está vacío");
         }
-        var query = "INSERT INTO vigilante(cedula, nombre, apellido, fec_nac, correo, telf, fec_ing, status)"
+        var query = "INSERT INTO vigilante(cedula, nombre, apellido, fec_nac, correo, telf, sueldo_b, fec_ing, status)"
                 + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         var stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -48,8 +48,9 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         stmt.setDate(4, Date.valueOf(entity.getFecNac()));
         stmt.setString(5, entity.getCorreo());
         stmt.setString(6, entity.getTelf());
-        stmt.setDate(7, Date.valueOf(entity.getFecIng()));
-        stmt.setInt(8, entity.getStatus());
+        stmt.setDouble(7, entity.getSueldoBase());
+        stmt.setDate(8, Date.valueOf(entity.getFecIng()));
+        stmt.setInt(9, entity.getStatus());
         
         if (stmt.executeUpdate() == 1) {
         	var rs = stmt.getGeneratedKeys();
@@ -66,7 +67,7 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         if (entity == null) {
             throw new SQLException("El Vigilante está vacío");
         }
-        var query = "UPDATE vigilante SET cedula=?, nombre=?, apellido=?, fec_nac=?, correo=?, telf=?, fec_ing=?, status=?	WHERE id=?";
+        var query = "UPDATE vigilante SET cedula=?, nombre=?, apellido=?, fec_nac=?, correo=?, telf=?, sueldo_b=?, fec_ing=?, status=?	WHERE id=?";
         
         var stmt = conn.prepareStatement(query);
         stmt.setString(1, entity.getCedula());
@@ -75,9 +76,10 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         stmt.setDate(4, Date.valueOf(entity.getFecNac()));
         stmt.setString(5, entity.getCorreo());
         stmt.setString(6, entity.getTelf());
-        stmt.setDate(7, Date.valueOf(entity.getFecIng()));
-        stmt.setInt(8, entity.getStatus());
-        stmt.setInt(9, entity.getId());
+        stmt.setDouble(7, entity.getSueldoBase());
+        stmt.setDate(8, Date.valueOf(entity.getFecIng()));
+        stmt.setInt(9, entity.getStatus());
+        stmt.setInt(10, entity.getId());
         
         stmt.executeUpdate();
 	}
@@ -105,6 +107,7 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
         entity.setFecNac(rs.getDate("fec_nac").toLocalDate());
         entity.setCorreo(rs.getString("correo"));
         entity.setTelf(rs.getString("telf"));
+        entity.setSueldoBase(rs.getDouble("sueldo_b"));
         entity.setFecIng(rs.getDate("fec_ing").toLocalDate());
         entity.setStatus(rs.getInt("status"));
         

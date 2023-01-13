@@ -26,6 +26,7 @@ public class VigilantePopupView extends JFrame implements PopupView {
     private JLabel jLabel4;
     private JLabel jLabel5;
     private JLabel jLabel6;
+    private JLabel jLabel7;
     
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -37,6 +38,7 @@ public class VigilantePopupView extends JFrame implements PopupView {
     private JSpinner spnFecNac;
     private JTextField txtCorreo;
     private JTextField txtTelefono;
+    private JTextField txtSueldoBase;
 
     public VigilantePopupView() {
         initComponents();
@@ -92,6 +94,10 @@ public class VigilantePopupView extends JFrame implements PopupView {
         return txtTelefono;
     }
     
+    public JTextField getTxtSueldoBase() {
+        return txtSueldoBase;
+    }
+    
     private void initValidators() {
     	// Cédula debe aceptar solo dígitos
         txtCedula.addKeyListener(new KeyAdapter() {
@@ -122,6 +128,7 @@ public class VigilantePopupView extends JFrame implements PopupView {
         jLabel4 = new JLabel();
         jLabel5 = new JLabel();
         jLabel6 = new JLabel();
+        jLabel7 = new JLabel();
         
         txtCedula = new JTextField();
         txtNombre = new JTextField();
@@ -129,6 +136,7 @@ public class VigilantePopupView extends JFrame implements PopupView {
         spnFecNac = new JSpinner();
         txtCorreo = new JTextField();
         txtTelefono = new JTextField();
+        txtSueldoBase = new JTextField();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -213,6 +221,14 @@ public class VigilantePopupView extends JFrame implements PopupView {
         jLabel6.setText("Número de teléfono:");
         jPanel3.add(jLabel6, gridBagConstraints);
         
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel7.setText("Sueldo Base x Dia:");
+        jPanel3.add(jLabel7, gridBagConstraints);
+        
         // Inputs
         
         gridBagConstraints = new GridBagConstraints();
@@ -266,6 +282,14 @@ public class VigilantePopupView extends JFrame implements PopupView {
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jPanel3.add(txtTelefono, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtSueldoBase, gridBagConstraints);
         
         getContentPane().add(jPanel3, BorderLayout.CENTER);
 

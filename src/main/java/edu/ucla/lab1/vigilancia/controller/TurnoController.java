@@ -56,6 +56,7 @@ public class TurnoController extends ManagerController {
 			}
 		} catch (Exception e) {
 			view.showError(e);
+		}
 		
 	}
 

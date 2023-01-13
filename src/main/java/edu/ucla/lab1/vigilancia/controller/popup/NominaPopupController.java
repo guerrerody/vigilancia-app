@@ -10,14 +10,15 @@ import edu.ucla.lab1.vigilancia.dao.NominaDao;
 import edu.ucla.lab1.vigilancia.dao.VigilanteDao;
 import edu.ucla.lab1.vigilancia.model.Vigilante;
 import edu.ucla.lab1.vigilancia.model.Nomina;
-import edu.ucla.lab1.vigilancia.view.popup.NominaPopupView;;
+import edu.ucla.lab1.vigilancia.view.popup.NominaPopupView;
+import edu.ucla.lab1.vigilancia.view.popup.NominaVigPopupView;
 
 public class NominaPopupController {
 	NominaDao nomDao = new NominaDao();
 	VigilanteDao vigDao = new VigilanteDao();
 	JFrame previousView;
 	
-	public void add(NominaPopupView view, SuccessCallback sc, ErrorCallback ec) {
+	public void add(NominaVigPopupView view, SuccessCallback sc, ErrorCallback ec) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
             return;
@@ -40,7 +41,32 @@ public class NominaPopupController {
         
     }
 	
-	public void edit(NominaPopupView view, Nomina nomina, SuccessCallback sc, ErrorCallback ec) {
+	public void AddMenu(NominaPopupView view, NominaVigPopupView viewV, SuccessCallback sc, ErrorCallback ec) {
+		if (previousView != null && previousView.isDisplayable()) {
+            previousView.requestFocus();
+            return;
+        }
+        previousView = view;
+        view.setVisible(true);
+        
+        view.getBtnCancel().addActionListener(evt -> view.dispose());
+        view.getBtnNomVig().addActionListener(evt -> {
+        	view.dispose();
+        	add(viewV,sc,ec);
+        });
+        view.getBtnNomMen().addActionListener(evt -> {
+        	nomDao.generarNominaMensual();
+        	
+        	view.dispose();
+            view.showMessage("Nomina mensual creada");
+            sc.onSuccess();
+        });
+        view.getBtnNomSem().addActionListener(evt -> {
+        	//ArrayList<Nomina> n = nomDao.obtenerNominaSemanal();
+        });
+	};
+	
+	public void edit(NominaVigPopupView view, Nomina nomina, SuccessCallback sc, ErrorCallback ec) {
         if (previousView != null && previousView.isDisplayable()) {
             previousView.requestFocus();
             return;
@@ -75,19 +101,19 @@ public class NominaPopupController {
         });
     }
 	
-	public Nomina addNomina(NominaPopupView view, Nomina n) throws Exception {
+	public Nomina addNomina(NominaVigPopupView view, Nomina n) throws Exception {
     	loadAddFields(view, n);
         nomDao.save(n);
         
         return n;
     }
 	
-	public void editNomina(NominaPopupView view, Nomina v) throws Exception {
+	public void editNomina(NominaVigPopupView view, Nomina v) throws Exception {
     	loadFields(view, v);
         nomDao.update(v);
     }
 	
-	protected void loadFields(NominaPopupView view, Nomina n) throws Exception {
+	protected void loadFields(NominaVigPopupView view, Nomina n) throws Exception {
         
     	String desc = view.getTxtDesc().getText();
         if (desc.isEmpty()) {
@@ -145,7 +171,7 @@ public class NominaPopupController {
         n.setDeduccion(deduccion);
     }
 	
-	protected void loadAddFields(NominaPopupView view, Nomina n) throws Exception {
+	protected void loadAddFields(NominaVigPopupView view, Nomina n) throws Exception {
         
 		Vigilante vigilante = (Vigilante) view.getCboVigilante().getSelectedItem();
     	if (vigilante == null || vigilante.getId() == null) {
@@ -203,7 +229,7 @@ public class NominaPopupController {
         n.calcDeduccion();
     }
 	
-    private void initComboBox(NominaPopupView view) {
+    private void initComboBox(NominaVigPopupView view) {
         try {
         	view.getVigilanteComboBoxModel().addElement(new Vigilante()); 
             for (Vigilante v : vigDao.getAll()) {

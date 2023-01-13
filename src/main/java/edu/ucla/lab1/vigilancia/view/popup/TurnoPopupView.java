@@ -305,7 +305,7 @@ public class TurnoPopupView  extends JFrame implements PopupView {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 0);
-        spnFechaIn.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+        spnFechaIn.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
         SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
         spnFechaIn.setEditor(new JSpinner.DateEditor(spnFechaIn, model.toPattern()));
         
@@ -317,7 +317,7 @@ public class TurnoPopupView  extends JFrame implements PopupView {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 0);
-        spnHorIn.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.HOUR_OF_DAY));
+        spnHorIn.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY));
         SimpleDateFormat model1 = new SimpleDateFormat("HH:mm:ss");
         spnHorIn.setEditor(new JSpinner.DateEditor(spnHorIn, model1.toPattern()));
         
@@ -329,7 +329,7 @@ public class TurnoPopupView  extends JFrame implements PopupView {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 0);
-        spnFechaFin.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+        spnFechaFin.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
         SimpleDateFormat model2 = new SimpleDateFormat("dd/MM/yyyy");
         spnFechaFin.setEditor(new JSpinner.DateEditor(spnFechaFin, model2.toPattern()));
         
@@ -341,7 +341,7 @@ public class TurnoPopupView  extends JFrame implements PopupView {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 0);
-        spnHorFin.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.HOUR_OF_DAY));
+        spnHorFin.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.HOUR_OF_DAY));
         SimpleDateFormat model3 = new SimpleDateFormat("HH:mm:ss");
         spnHorFin.setEditor(new JSpinner.DateEditor(spnHorFin, model3.toPattern()));
         

@@ -82,6 +82,7 @@ public class Nomina extends Model {
     public Object[] toRowTable() {
     	return new Object[]{
     		this.getId(),
+    		this.getVigilante().toString(),
     	    this.getFecha(),
     	    this.getDiasTrab(),
     	    this.getHorasExtra(),

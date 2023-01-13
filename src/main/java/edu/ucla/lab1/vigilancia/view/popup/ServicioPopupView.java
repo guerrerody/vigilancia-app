@@ -259,7 +259,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        spnFechaIn.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+        spnFechaIn.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
         SimpleDateFormat model1 = new SimpleDateFormat("dd/MM/yyyy");
         spnFechaIn.setEditor(new JSpinner.DateEditor(spnFechaIn, model1.toPattern()));
         jPanel3.add(spnFechaIn, gridBagConstraints);
@@ -270,7 +270,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        spnFechaFin.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+        spnFechaFin.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
         SimpleDateFormat model2 = new SimpleDateFormat("dd/MM/yyyy");
         spnFechaFin.setEditor(new JSpinner.DateEditor(spnFechaFin, model2.toPattern()));
         jPanel3.add(spnFechaFin, gridBagConstraints);

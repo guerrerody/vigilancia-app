@@ -11,6 +11,7 @@ import edu.ucla.lab1.vigilancia.dao.NominaDao;
 import edu.ucla.lab1.vigilancia.model.Nomina;
 import edu.ucla.lab1.vigilancia.controller.popup.NominaPopupController;
 import edu.ucla.lab1.vigilancia.view.popup.NominaPopupView;
+import edu.ucla.lab1.vigilancia.view.popup.NominaVigPopupView;
 
 public class NominaController extends ManagerController {
 	private NominaDao nomDao = new NominaDao();
@@ -18,14 +19,13 @@ public class NominaController extends ManagerController {
 	NominaPopupController popupController = new NominaPopupController();
 	NominaPopupController nominaPopupController = new NominaPopupController();
 	
-	
 	public NominaController() {
 		super();
 	}
 	
 	@Override
 	public void actionAdd() {
-		nominaPopupController.add(new NominaPopupView(true), this::updateData, view::showError);
+		nominaPopupController.AddMenu(new NominaPopupView(), new NominaVigPopupView(true), this::updateData, view::showError);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class NominaController extends ManagerController {
 			} else {
 				var v = nomDao.getById(selectedId)
 						.orElseThrow(() -> new Exception("La nomina seleccionada NO es válida"));
-				popupController.edit(new NominaPopupView(false), v, this::updateData, view::showError);
+				popupController.edit(new NominaVigPopupView(false), v, this::updateData, view::showError);
 			}
 		} catch (Exception e) {
 			view.showError(e);

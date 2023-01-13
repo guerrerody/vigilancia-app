@@ -11,6 +11,7 @@ public class Vigilante extends Model {
 	private LocalDate fecNac;
 	private String correo;
 	private String telf;
+	private Double sueldoBase;
 	private LocalDate fecIng = LocalDate.now();
 	private Integer status = 0;
 	
@@ -71,6 +72,14 @@ public class Vigilante extends Model {
 
 	public void setTelf(String telf) {
 		this.telf = telf;
+	}
+	
+	public Double getSueldoBase() {
+		return sueldoBase;
+	}
+
+	public void setSueldoBase(Double sueldoBase) {
+		this.sueldoBase = sueldoBase;
 	}
 
 	public LocalDate getFecIng() {
