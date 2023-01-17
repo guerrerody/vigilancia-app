@@ -3,6 +3,7 @@ package edu.ucla.lab1.vigilancia.controller.popup;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -60,9 +61,6 @@ public class NominaPopupController {
         	view.dispose();
             view.showMessage("Nomina mensual creada");
             sc.onSuccess();
-        });
-        view.getBtnNomSem().addActionListener(evt -> {
-        	//ArrayList<Nomina> n = nomDao.obtenerNominaSemanal();
         });
 	};
 	

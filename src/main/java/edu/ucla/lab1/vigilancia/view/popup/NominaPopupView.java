@@ -16,7 +16,6 @@ public class NominaPopupView extends JFrame implements PopupView {
     
     private JButton btnNomVig;
     private JButton btnNomMen;
-    private JButton btnNomSem;
     
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -41,10 +40,6 @@ public class NominaPopupView extends JFrame implements PopupView {
 	
 	public JButton getBtnNomMen() {
 		return btnNomMen;
-	}
-	
-	public JButton getBtnNomSem() {
-		return btnNomSem;
 	}
 
 	@Override
@@ -134,7 +129,6 @@ public class NominaPopupView extends JFrame implements PopupView {
         
         btnNomVig = new JButton();
         btnNomMen = new JButton();
-        btnNomSem = new JButton();
         
         btnCancel = new JButton();
         
@@ -184,13 +178,6 @@ public class NominaPopupView extends JFrame implements PopupView {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.1;
         jPanel3.add(btnNomMen, gridBagConstraints);
-        
-        btnNomSem.setText("Ver Nomina Semanal");
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.weightx = 0.1;
-        jPanel3.add(btnNomSem, gridBagConstraints);
         
         getContentPane().add(jPanel3, BorderLayout.CENTER);
 

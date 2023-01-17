@@ -74,7 +74,7 @@ public class NominaController extends ManagerController {
 	public void actionSearch() {
 		try {
 			ArrayList<Nomina> nomina = nomDao.searchByKey(view.getCboSearchField().getSelectedItem().toString(),
-					String.valueOf(view.getTxtSearch().getText()));
+					String.valueOf(view.getTxtSearch().getText()));		
 			view.setTableData(nomina);
 		} catch (Exception e) {
 			view.showError(e);

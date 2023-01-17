@@ -20,8 +20,8 @@ public class NominaDao extends Dao<Nomina, Integer>{
 			+ " v.nombre AS nombre_vigilante, v.cedula AS cedula_vigilante"
 			+ " FROM nomina n LEFT JOIN vigilante v ON n.vigilante_id = v.id";
 
-	VigilanteDao vigDao = new VigilanteDao();
-	TurnoDao turDao= new TurnoDao(); 
+	//VigilanteDao vigDao = new VigilanteDao();
+	//TurnoDao turDao= new TurnoDao(); 
 	
 	@Override
 	public Nomina toEntity(ResultSet rs) throws SQLException {
@@ -137,23 +137,35 @@ public class NominaDao extends Dao<Nomina, Integer>{
 	}
 	
 	public ArrayList<Nomina> searchByKey(String key, String word) throws SQLException {
-        ArrayList<Nomina> entities = new ArrayList<>();
-        
-        var statement = conn.createStatement();
-        var query = QUERY_SELECT_JOIN + " WHERE n." + key + " ILIKE '%" + word + "%';";
-        ResultSet rs = statement.executeQuery(query);
-        while (rs.next()) {
-            entities.add(toEntity(rs));
+		
+		ArrayList<Nomina> entities = new ArrayList<>();
+		
+		if(key == "mensual") {
+			entities = getAll();
+		} else if(key == "semanal") {
+			entities = obtenerNominaSemanal();
+		} else {     
+	        var statement = conn.createStatement();
+	        var query = QUERY_SELECT_JOIN + " WHERE n." + key + " ILIKE '%" + word + "%';";
+	        ResultSet rs = statement.executeQuery(query);
+	        while (rs.next()) {
+	            entities.add(toEntity(rs));
+	        }
         }
+		
         return entities;
     }
 	
 	public void generarNominaMensual() {
 		
-		LocalDate currentDate = LocalDate.now();
+		MediatorDao medDao = new MediatorDao(new TurnoDao(), new VigilanteDao(), null);
+		
+		LocalDate currentDate = LocalDate.now().minusMonths(1);
 		LocalDate nextDate = currentDate.plusMonths(1);
 		try {
-			ArrayList <Vigilante> vig = vigDao.getAll();
+			ArrayList <Vigilante> vig = (ArrayList<Vigilante>) medDao.getNominaData("vigilantes", null);
+			
+			//ArrayList <Vigilante> vig = vigDao.getAll();
 			
 			for(int i = 0; i < vig.size(); i++) {
 				int diasFalta = 0;
@@ -161,7 +173,11 @@ public class NominaDao extends Dao<Nomina, Integer>{
 				
 				n.setVigilante(vig.get(i));
 				n.setFecha(currentDate);
-				ArrayList<Turno> t = turDao.getDiasTrabVigilante(n.getVigilante().getId(), currentDate.toString(), nextDate.toString());
+				
+				String[] params = {n.getVigilante().getId().toString(), currentDate.toString(), nextDate.toString()};
+				ArrayList<Turno> t = (ArrayList<Turno>) medDao.getNominaData("turnosVig", params);
+				
+				//ArrayList<Turno> t = turDao.getDiasTrabVigilante(n.getVigilante().getId(), currentDate.toString(), nextDate.toString());
 				for(int j = 0; j < t.size(); j++) {
 					if(t.get(j).getFalta() == true) {
 						if(t.get(j).getJust().isEmpty() || t.get(j).getJust().isBlank()) {
@@ -182,12 +198,16 @@ public class NominaDao extends Dao<Nomina, Integer>{
 	}
 		
 	public ArrayList<Nomina> obtenerNominaSemanal() {
-		LocalDate currentDate = LocalDate.now();
+		
+		MediatorDao medDao = new MediatorDao(new TurnoDao(), new VigilanteDao(), null);
+		
+		LocalDate currentDate = LocalDate.now().minusWeeks(1);
 		LocalDate nextDate = currentDate.plusWeeks(1);
 		
 		ArrayList <Nomina> nominaSem = new ArrayList<Nomina>();
 		try {
-			ArrayList <Vigilante> vig = vigDao.getAll();
+			ArrayList <Vigilante> vig = (ArrayList<Vigilante>) medDao.getNominaData("vigilantes", null);
+			//ArrayList <Vigilante> vig = vigDao.getAll();
 				
 			for(int i = 0; i < vig.size(); i++) {
 				int diasFalta = 0;
@@ -195,7 +215,11 @@ public class NominaDao extends Dao<Nomina, Integer>{
 				
 				n.setVigilante(vig.get(i));
 				n.setFecha(currentDate);
-				ArrayList<Turno> t = turDao.getDiasTrabVigilante(n.getVigilante().getId(), currentDate.toString(), nextDate.toString());
+				
+				String[] params = {n.getVigilante().getId().toString(), currentDate.toString(), nextDate.toString()};
+				ArrayList<Turno> t = (ArrayList<Turno>) medDao.getNominaData("turnosVig", params);
+				
+				//ArrayList<Turno> t = turDao.getDiasTrabVigilante(n.getVigilante().getId().toString(), currentDate.toString(), nextDate.toString());
 				for(int j = 0; j < t.size(); j++) {
 					if(t.get(j).getFalta() == true) {
 						if(t.get(j).getJust().isEmpty() || t.get(j).getJust().isBlank()) {

@@ -7,7 +7,7 @@ import edu.ucla.lab1.vigilancia.model.Nomina;
 public class NominaView extends ManagerPaneView<Nomina>{
 	private static final long serialVersionUID = 1L;
 	
-	String[] fieldsSearch = { "vigilante_id", "fecha" };
+	String[] fieldsSearch = { "vigilante_id", "fecha", "mensual", "semanal" };
 
 	public NominaView() {
         super();
@@ -30,7 +30,6 @@ public class NominaView extends ManagerPaneView<Nomina>{
         
         this.getCboSearchField().setModel(new DefaultComboBoxModel(fieldsSearch));
 	}
-	
 	
 
 }

@@ -57,22 +57,21 @@ public class TurnoPopupController {
         
         initComboBox(view);
         
-        view.getCboServicio().setSelectedItem(turno.getServicio().toString());
-        view.getCboVigilante().setSelectedItem(turno.getVigilante().toString());
+        view.getCboServicio().setSelectedItem(turno.getServicio());
+        view.getCboVigilante().setSelectedItem(turno.getVigilante());
         
         view.getSpnFechaIn().setValue(
 				Date.from(turno.getFec_in().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
         
-        view.getSpnHorIn().setValue(turno.getHor_in());
+        view.getSpnHorIn().setValue(Time.valueOf(turno.getHor_in()));
         
         view.getSpnFechaFin().setValue(
 				Date.from(turno.getFec_fin().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
 
-        view.getSpnHorFin().setValue(turno.getHor_fin());
-				
-        view.getRdbtnMarcarFaltado().setEnabled(turno.getFalta());
-       
+        view.getSpnHorFin().setValue(Time.valueOf(turno.getHor_fin()));
         
+        view.getRdbtnMarcarFaltado().setSelected(turno.getFalta());
+       
         view.getTxtJust().setText(turno.getJust());
         
         view.getBtnOK().setText("Actualizar");

@@ -59,6 +59,9 @@ public class TurnoDao extends Dao<Turno, Integer> {
         	var rs = stmt.getGeneratedKeys();
         	
         	if (rs.next()) {
+        		
+        		MediatorDao medDao = new MediatorDao(null, null, new DetalleServicioDao());
+        		
         		entity.setId(rs.getInt("id"));
         		
         		DetalleServicio ds = new DetalleServicio();
@@ -66,7 +69,9 @@ public class TurnoDao extends Dao<Turno, Integer> {
             	ds.setServicio(entity.getServicio());
             	ds.setTurno(entity);
             	
-            	detserDao.save(ds);
+            	medDao.saveData(ds);
+            	
+            	//detserDao.save(ds);
             	
         		return entity;
         	}
@@ -155,12 +160,12 @@ public class TurnoDao extends Dao<Turno, Integer> {
         return Optional.empty();
     }
     
-    public ArrayList<Turno> getDiasTrabVigilante(Integer idv, String fechaIn, String fechaFin) throws SQLException {
+    public ArrayList<Turno> getDiasTrabVigilante(String idv, String fechaIn, String fechaFin) throws SQLException {
     	ArrayList<Turno> entities = new ArrayList<>();
     	
     	var statement = conn.createStatement();
         
-        var query = QUERY_SELECT_JOIN + " WHERE ds.vigilante_id = " + idv.toString() + " AND (t.fec_in BETWEEN '" + fechaIn + "' AND '" + fechaFin + "');";
+        var query = QUERY_SELECT_JOIN + " WHERE ds.vigilante_id = " + idv + " AND (t.fec_in BETWEEN '" + fechaIn + "' AND '" + fechaFin + "');";
         ResultSet rs = statement.executeQuery(query);
         while (rs.next()) {
             entities.add(toEntity(rs));
