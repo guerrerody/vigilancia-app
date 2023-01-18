@@ -24,7 +24,7 @@ ALTER TABLE nomina
 RENAME COLUMN pagoextra TO pago_extra;
 
 ALTER TABLE turno
-DROP COLUMN horario_id;
+DROP COLUMN id_horario;
 ALTER TABLE turno
 ADD COLUMN hor_in TIME WITHOUT TIME ZONE NOT NULL;
 ALTER TABLE turno

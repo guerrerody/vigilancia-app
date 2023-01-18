@@ -10,6 +10,8 @@ import edu.ucla.lab1.vigilancia.model.ServicioExtra;
 
 public class ServicioExtraDao extends Dao<ServicioExtra, Integer> {
 	
+	TipoAlquilerDao tipoAlDao = new TipoAlquilerDao();
+	
 	private static final String QUERY_SELECT_JOIN = "SELECT se.servicio_id AS servicio_id, se.tipo_alquiler_id AS tipo_alquiler_id,"
 			+ "se.cant AS cant, ta.nombre AS nombre_alquiler"
 			+ " FROM servicio_extra se"
@@ -39,6 +41,17 @@ public class ServicioExtraDao extends Dao<ServicioExtra, Integer> {
 			return Optional.ofNullable(toEntity(rs));
 		}
 		return Optional.empty();
+	}
+	
+	public ArrayList<ServicioExtra> getAllById(Integer id) throws SQLException {
+		ArrayList<ServicioExtra> entities = new ArrayList<>();
+		var statement = conn.createStatement();
+		var query = QUERY_SELECT_JOIN + " WHERE se.servicio_id = " + id.toString();
+		ResultSet rs = statement.executeQuery(query);
+		while (rs.next()) {
+			entities.add(toEntity(rs));
+		}
+		return entities;
 	}
 	
 	public Optional<ServicioExtra> getByIds(Integer serv_id, Integer al_id) throws SQLException {
@@ -111,9 +124,10 @@ public class ServicioExtraDao extends Dao<ServicioExtra, Integer> {
 		var s = entity.getServicio();
 		s.setId(rs.getInt("servicio_id"));
 		
-		var ta = entity.getTipoAlquiler();
-		ta.setId(rs.getInt("tipo_alquiler_id"));
-		ta.setNombre(rs.getString("nombre_alquiler"));
+		var ta = tipoAlDao.getById(rs.getInt("tipo_alquiler_id"));
+		if(ta.isPresent()) {
+			entity.setTipoAlquiler(ta.get());
+		}
 
 		return entity;
 	}

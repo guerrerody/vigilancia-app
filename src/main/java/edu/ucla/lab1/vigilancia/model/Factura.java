@@ -79,19 +79,28 @@ public class Factura extends Model {
 		this.cliente = cliente;
 	}
 	
-	public void calcMontos() {
-		
+	public Double getMontoServicio() {
 		Double costo_servicio = servicio.getCosto();
+		int cantTurnos = servicio.cantidadTurnos();
+		
+		return costo_servicio * cantTurnos;
+	}
+	
+	public Double getMontoAlquiler() {
 		Double costo_alquiler = 0.0;
+		int cantTurnos = servicio.cantidadTurnos();
 		
 		for (ServicioExtra se : servExtra) {
 			if(se != null) {
 				costo_alquiler += se.getTipoAlquiler().getCostoUso() + se.getTipoAlquiler().getCostoMant();
 			}
 		}
-		int cantTurnos = servicio.cantidadTurnos();
 		
-		subtotal = (costo_servicio + costo_alquiler) * cantTurnos;
+		return costo_alquiler * cantTurnos;
+	}
+	
+	public void calcMontos() {
+		subtotal = getMontoServicio() + getMontoAlquiler();
 	}
 	
 	public void calcMontoTotal() {

@@ -27,6 +27,8 @@ private static final long serialVersionUID = 1L;
     private JLabel jLabel5;
     private JLabel jLabel6;
     private JLabel jLabel7;
+    private JLabel jLabel8;
+    private JLabel jLabel9;
     
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -39,6 +41,8 @@ private static final long serialVersionUID = 1L;
     private JTextField txtStatus;
     private JTextField txtSubtotal;
     private JTextField txtMontoTotal;
+    private JTextField txtMontoServicio;
+    private JTextField txtMontoAlquiler;
 
     public FacturaPopupView(String select) {
     	
@@ -109,6 +113,14 @@ private static final long serialVersionUID = 1L;
     
     public JTextField getTxtMontoTotal() {
         return txtMontoTotal;
+    }
+    
+    public JTextField getTxtMontoServicio() {
+        return txtMontoServicio;
+    }
+    
+    public JTextField getTxtMontoAlquiler() {
+        return txtMontoAlquiler;
     }
     
     private void initValidators() {
@@ -435,6 +447,8 @@ private static final long serialVersionUID = 1L;
         jLabel5 = new JLabel();
         jLabel6 = new JLabel();
         jLabel7 = new JLabel();
+        jLabel8 = new JLabel();
+        jLabel9 = new JLabel();
         
         spnFechaPago = new JSpinner();
         txtDesc = new JTextField();
@@ -442,6 +456,8 @@ private static final long serialVersionUID = 1L;
         txtStatus = new JTextField();
         txtSubtotal = new JTextField();
         txtMontoTotal = new JTextField();
+        txtMontoServicio = new JTextField();
+        txtMontoAlquiler = new JTextField();
         cboServicio = new JComboBox<>();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -524,12 +540,28 @@ private static final long serialVersionUID = 1L;
         gridBagConstraints.gridy = 5;
         gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel8.setText("Costo servicio:");
+        jPanel3.add(jLabel8, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel9.setText("Costo alquiler:");
+        jPanel3.add(jLabel9, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jLabel6.setText("SubTotal:");
         jPanel3.add(jLabel6, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jLabel7.setText("Monto Total:");
@@ -585,11 +617,27 @@ private static final long serialVersionUID = 1L;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        jPanel3.add(txtSubtotal, gridBagConstraints);
+        jPanel3.add(txtMontoServicio, gridBagConstraints);
         
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtMontoAlquiler, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtSubtotal, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);

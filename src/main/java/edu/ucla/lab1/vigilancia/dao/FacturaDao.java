@@ -4,7 +4,6 @@ import static javax.swing.JOptionPane.ERROR_MESSAGE;
 import static javax.swing.JOptionPane.YES_OPTION;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -14,8 +13,12 @@ public class FacturaDao extends Dao<Factura, Integer>{
 	
 	private static final String QUERY_SELECT_JOIN = "SELECT f.id AS id,"
 			+ " f.fec_pago AS fec_pago, f.descr AS descr, f.iva AS iva, f.status AS status,"
-			+ " f.subtotal AS subtotal, f.monto_total AS monto_total, s.id AS servicio_id"
+			+ " f.subtotal AS subtotal, f.monto_total AS monto_total, "
+			+ " s.id AS servicio_id"
 			+ " FROM factura f LEFT JOIN servicio s ON f.servicio_id = s.id";
+	
+	ServicioExtraDao servExDao = new ServicioExtraDao();
+	ServicioDao servDao = new ServicioDao();
 
 	@Override
 	public Factura toEntity(ResultSet rs) throws SQLException {
@@ -29,8 +32,11 @@ public class FacturaDao extends Dao<Factura, Integer>{
         entity.setSubtotal(rs.getDouble("subtotal"));
         entity.setMontoTotal(rs.getDouble("monto_total"));
         
-        var s = entity.getServicio();
-        s.setId(rs.getInt("servicio_id"));
+        var s = servDao.getById(rs.getInt("servicio_id"));
+        if(s.isPresent()) {
+        	entity.setServicio(s.get());
+        	entity.setAllServicioExtra(servExDao.getAllById(entity.getServicio().getId()));
+        }
         
         return entity;
 	}

@@ -91,7 +91,10 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
         return btnDelete;
     }
     
-    public abstract JButton getBtnView();
+    public JButton getBtnView() {
+    	JButton jbtn = new JButton();
+    	return jbtn;
+    };
 
     public JButton getBtnEdit() {
         return btnEdit;

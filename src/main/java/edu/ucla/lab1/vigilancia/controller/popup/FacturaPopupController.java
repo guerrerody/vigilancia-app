@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import edu.ucla.lab1.vigilancia.dao.FacturaDao;
 import edu.ucla.lab1.vigilancia.dao.ServicioDao;
+import edu.ucla.lab1.vigilancia.dao.ServicioExtraDao;
 import edu.ucla.lab1.vigilancia.model.Factura;
 import edu.ucla.lab1.vigilancia.model.Servicio;
 import edu.ucla.lab1.vigilancia.view.popup.FacturaPopupView;
@@ -15,6 +16,7 @@ import edu.ucla.lab1.vigilancia.view.popup.FacturaPopupView;
 public class FacturaPopupController {
 	FacturaDao facDao = new FacturaDao();
 	ServicioDao servDao = new ServicioDao();
+	ServicioExtraDao servExDao = new ServicioExtraDao();
 	JFrame previousView;
 	
 	public void add(FacturaPopupView view, SuccessCallback sc, ErrorCallback ec) {
@@ -135,13 +137,13 @@ public class FacturaPopupController {
         } catch(Exception e) {
         	throw new Exception("Se requiere ingresar el IVA.");
         }
-
-        
+		
         int status = 1;
 
         String desc = view.getTxtDesc().getText().trim();
         
         f.setServicio(servicio);
+        f.setAllServicioExtra(servExDao.getAllById(servicio.getId()));
         f.setDesc(desc);
         f.setIva(iva);
         f.setStatus(status);
@@ -176,12 +178,21 @@ public class FacturaPopupController {
 		view.getCboServicio().setEnabled(false);
         view.getSpnFechaPago().setValue(
 				Date.from(factura.getFechaPago().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+        view.getSpnFechaPago().setEnabled(false);
         view.getTxtDesc().setText(factura.getDesc());
+        view.getTxtDesc().setEnabled(false);
         view.getTxtIva().setText(factura.getIva().toString());
+        view.getTxtIva().setEnabled(false);
         view.getTxtStatus().setText(factura.getStatus().toString());
+        view.getTxtStatus().setEnabled(false);
         view.getTxtSubtotal().setText(factura.getSubtotal().toString());
+        view.getTxtSubtotal().setEnabled(false);
         view.getTxtMontoTotal().setText(factura.getMontoTotal().toString());
-        
+        view.getTxtMontoTotal().setEnabled(false);
+        view.getTxtMontoServicio().setText(factura.getMontoServicio().toString());
+        view.getTxtMontoServicio().setEnabled(false);
+        view.getTxtMontoAlquiler().setText(factura.getMontoAlquiler().toString());
+        view.getTxtMontoAlquiler().setEnabled(false);
 
         view.getBtnOK().setText("Aceptar");
         view.getBtnOK().addActionListener(evt -> {
