@@ -11,6 +11,7 @@ import edu.ucla.lab1.vigilancia.dao.FacturaDao;
 import edu.ucla.lab1.vigilancia.dao.ServicioDao;
 import edu.ucla.lab1.vigilancia.model.Factura;
 import edu.ucla.lab1.vigilancia.controller.popup.FacturaPopupController;
+import edu.ucla.lab1.vigilancia.view.FacturaView;
 import edu.ucla.lab1.vigilancia.view.popup.FacturaPopupView;
 
 public class FacturaController extends ManagerController {
@@ -82,5 +83,24 @@ public class FacturaController extends ManagerController {
 			view.showError(e);
 		}
 	}
+	
+	public void actionView() {
+		try {
+			int selectedId = view.getSelectedId();
+			if (selectedId < 0) {
+				throw new Exception("Seleccione la factura para ver");
+			} else {
+				var v = facDao.getById(selectedId)
+						.orElseThrow(() -> new Exception("La factura seleccionada NO es válida"));
+				popupController.view(new FacturaPopupView(false), v, this::updateData, view::showError);
+			}
+		} catch (Exception e) {
+			view.showError(e);
+		}
+	}
 
+	protected void addEvent() {
+		super.addEvent();
+		view.getBtnView().addActionListener(evt -> actionView());
+	}
 }

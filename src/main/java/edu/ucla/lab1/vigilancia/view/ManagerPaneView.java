@@ -21,7 +21,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
     private JButton btnEdit;
     private JButton btnSync;
     private JComboBox<String> cboSearchField;
-    private JPanel jPanel1;
+    protected JPanel jPanel1;
     private JPanel jPanel2;
     private JScrollPane jScrollPane1;
     private JTable tblData;
@@ -90,6 +90,8 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
     public JButton getBtnDelete() {
         return btnDelete;
     }
+    
+    public abstract JButton getBtnView();
 
     public JButton getBtnEdit() {
         return btnEdit;
@@ -155,7 +157,7 @@ public abstract class ManagerPaneView<T extends Model> extends JPanel {
 
     public abstract void setTableModel();
 
-    private void initComponents() {
+    protected void initComponents() {
         GridBagConstraints gridBagConstraints;
 
         jScrollPane1 = new JScrollPane();

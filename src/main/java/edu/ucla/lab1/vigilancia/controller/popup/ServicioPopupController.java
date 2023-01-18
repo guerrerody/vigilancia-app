@@ -97,6 +97,10 @@ public class ServicioPopupController {
         LocalDate fechaFin = ((Date) view.getSpnFechaFin().getValue())
         		.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
+        if(fechaIn.isAfter(fechaFin)) {
+        	throw new Exception("Fecha de inicio es mayor a fecha de fin.");
+        }
+        
         String descr = view.getTxtDescr().getText();
         
         String costo = view.getTxtCosto().getText();

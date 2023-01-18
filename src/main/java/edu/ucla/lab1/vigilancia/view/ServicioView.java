@@ -23,7 +23,7 @@ public class ServicioView extends ManagerPaneView<Servicio> {
         tableModel.addColumn("Fecha Inicio");
         tableModel.addColumn("Fecha Fin");
         tableModel.addColumn("Descripcion");
-        tableModel.addColumn("Costo Base Bs.");
+        tableModel.addColumn("Costo x Dia (Bs.)");
         
         this.getCboSearchField().setModel(new DefaultComboBoxModel(fieldsSearch));
 	}

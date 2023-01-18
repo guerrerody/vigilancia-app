@@ -38,7 +38,7 @@ public abstract class ManagerController {
     
     public abstract void actionSearch();
 
-    private void addEvent() {
+    protected void addEvent() {
         view.getTxtSearch().addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent evt) {
                 if (view.getTxtSearch().getText().equals(ManagerPaneView.SEARCH_TEXT)) {

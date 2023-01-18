@@ -64,7 +64,7 @@ public class ServicioDao extends Dao<Servicio, Integer> {
         	if (rs.next()) {
         		entity.setId(rs.getInt("id"));
         		
-        		LocalDate fec_in = entity.getFechaIn();
+        		/*LocalDate fec_in = entity.getFechaIn();
         		LocalTime hor_in;
         		LocalTime hor_fin;
         		if(entity.getCliente().getTipoCliente().getNombre() != "Tienda") {
@@ -83,7 +83,7 @@ public class ServicioDao extends Dao<Servicio, Integer> {
                 	turDao.save(t);
                 	
                 	fec_in.plusDays(1);
-            	}
+            	}*/
         		
         		return entity;
         	}

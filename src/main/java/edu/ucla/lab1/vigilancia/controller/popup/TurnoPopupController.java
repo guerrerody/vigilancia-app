@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -114,6 +115,24 @@ public class TurnoPopupController {
 		
 		LocalDate fec_Fin = ((Date) view.getSpnFechaFin().getValue())
         		.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		ArrayList<Turno> tur = turnoDao.getDiasTrabVigilante(vigilante.getId().toString(), fec_In.toString(), fec_Fin.toString());
+		
+		for(Turno tic: tur) {
+			if(tic.getVigilante().getId() == vigilante.getId()) {
+				throw new Exception("Vigilante ocupado por otro turno.");
+			}
+		}
+		
+		
+		
+		if(fec_In.isAfter(servicio.getFechaFin())) {
+			throw new Exception("El turno excede la duracion del servicio.");
+		}
+		
+		if(fec_In.isBefore(servicio.getFechaIn())) {
+			throw new Exception("El turno comienza antes de la duracion del servicio.");
+		}
 		
 		LocalTime hr_In = ((Date) view.getSpnHorIn().getValue()).toInstant().atZone(ZoneId.systemDefault()).toLocalTime();
 		

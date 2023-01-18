@@ -159,4 +159,38 @@ public class FacturaPopupController {
 		} catch (Exception e) {
 		}
 	}
+    
+    public void view(FacturaPopupView view, Factura factura, SuccessCallback sc, ErrorCallback ec) {
+    	if (previousView != null && previousView.isDisplayable()) {
+            previousView.requestFocus();
+            return;
+        }
+        previousView = view;
+        view.setVisible(true);
+        view.getBtnCancel().addActionListener(evt -> view.dispose());
+        view.getLbTitle().setText("Ver Factura");
+        
+        initComboBox(view);
+        
+        view.getCboServicio().setSelectedItem(factura.getServicio());
+		view.getCboServicio().setEnabled(false);
+        view.getSpnFechaPago().setValue(
+				Date.from(factura.getFechaPago().atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+        view.getTxtDesc().setText(factura.getDesc());
+        view.getTxtIva().setText(factura.getIva().toString());
+        view.getTxtStatus().setText(factura.getStatus().toString());
+        view.getTxtSubtotal().setText(factura.getSubtotal().toString());
+        view.getTxtMontoTotal().setText(factura.getMontoTotal().toString());
+        
+
+        view.getBtnOK().setText("Aceptar");
+        view.getBtnOK().addActionListener(evt -> {
+            try {
+                view.dispose();
+                sc.onSuccess();
+            } catch (Exception ex) {
+                ec.onError(ex);
+            }
+        });
+    }
 }

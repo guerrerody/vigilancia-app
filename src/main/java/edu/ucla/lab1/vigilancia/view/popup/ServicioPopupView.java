@@ -232,7 +232,7 @@ public class ServicioPopupView extends JFrame implements PopupView{
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = GridBagConstraints.LINE_END;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        jLabel5.setText("Costo Base Bs.:");
+        jLabel5.setText("Costo x Dia (Bs.):");
         jPanel3.add(jLabel5, gridBagConstraints);
         
         /*gridBagConstraints = new GridBagConstraints();
