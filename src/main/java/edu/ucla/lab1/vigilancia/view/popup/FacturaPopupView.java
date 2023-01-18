@@ -40,10 +40,12 @@ private static final long serialVersionUID = 1L;
     private JTextField txtSubtotal;
     private JTextField txtMontoTotal;
 
-    public FacturaPopupView(boolean add) {
+    public FacturaPopupView(String select) {
     	
-    	if(add == true) {
+    	if(select == "add") {
     		initAddComponents();
+    	} else if(select == "view") {
+    		initViewComponents();
     	} else {
     		initComponents();
     	}
@@ -408,6 +410,190 @@ private static final long serialVersionUID = 1L;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         jPanel3.add(txtIva, gridBagConstraints);
+ 
+        getContentPane().add(jPanel3, BorderLayout.CENTER);
+
+        pack();
+    }
+    
+    private void initViewComponents() {
+    	GridBagConstraints gridBagConstraints;
+
+        lbTitle = new JLabel();
+        
+        btnCancel = new JButton();
+        btnOK = new JButton();
+        
+        jPanel1 = new JPanel();
+        jPanel2 = new JPanel();
+        jPanel3 = new JPanel();
+
+        jLabel1 = new JLabel();
+        jLabel2 = new JLabel();
+        jLabel3 = new JLabel();
+        jLabel4 = new JLabel();
+        jLabel5 = new JLabel();
+        jLabel6 = new JLabel();
+        jLabel7 = new JLabel();
+        
+        spnFechaPago = new JSpinner();
+        txtDesc = new JTextField();
+        txtIva = new JTextField();
+        txtStatus = new JTextField();
+        txtSubtotal = new JTextField();
+        txtMontoTotal = new JTextField();
+        cboServicio = new JComboBox<>();
+
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setPreferredSize(new Dimension(400, 50));
+        jPanel1.setLayout(new GridBagLayout());
+
+        lbTitle.setFont(new Font("Segoe UI", 1, 14));
+        lbTitle.setText("Nueva Factura");
+        jPanel1.add(lbTitle, new GridBagConstraints());
+
+        getContentPane().add(jPanel1, BorderLayout.PAGE_START);
+
+        jPanel2.setPreferredSize(new Dimension(400, 75));
+        jPanel2.setLayout(new GridBagLayout());
+
+        btnOK.setText("Aceptar");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 0.1;
+        jPanel2.add(btnOK, gridBagConstraints);
+        
+        btnCancel.setText("Cancelar");
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 0.1;
+        jPanel2.add(btnCancel, gridBagConstraints);
+
+        getContentPane().add(jPanel2, BorderLayout.PAGE_END);
+
+        jPanel3.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        jPanel3.setLayout(new GridBagLayout());
+        
+        // Labels
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel1.setText("Servicio ID:");
+        jPanel3.add(jLabel1, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel2.setText("Fecha de Pago:");
+        jPanel3.add(jLabel2, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel3.setText("Descripcion:");
+        jPanel3.add(jLabel3, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel4.setText("IVA:");
+        jPanel3.add(jLabel4, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel5.setText("Status:");
+        jPanel3.add(jLabel5, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel6.setText("SubTotal:");
+        jPanel3.add(jLabel6, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = GridBagConstraints.LINE_END;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jLabel7.setText("Monto Total:");
+        jPanel3.add(jLabel7, gridBagConstraints);
+        // Inputs
+        
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        jPanel3.add(cboServicio, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        spnFechaPago.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+        SimpleDateFormat model = new SimpleDateFormat("dd/MM/yyyy");
+        spnFechaPago.setEditor(new JSpinner.DateEditor(spnFechaPago, model.toPattern()));
+        jPanel3.add(spnFechaPago, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtDesc, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtIva, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtStatus, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtSubtotal, gridBagConstraints);
+        
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        jPanel3.add(txtMontoTotal, gridBagConstraints);
  
         getContentPane().add(jPanel3, BorderLayout.CENTER);
 

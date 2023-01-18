@@ -1,0 +1,2 @@
+ALTER TABLE vigilante
+ADD COLUMN sueldo_b DOUBLE PRESICION;

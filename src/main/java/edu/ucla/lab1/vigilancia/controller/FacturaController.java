@@ -26,7 +26,7 @@ public class FacturaController extends ManagerController {
 
 	@Override
 	public void actionAdd() {
-		facturaPopupController.add( new FacturaPopupView(true), this::updateData, view::showError);
+		facturaPopupController.add( new FacturaPopupView("add"), this::updateData, view::showError);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class FacturaController extends ManagerController {
 			} else {
 				var v = facDao.getById(selectedId)
 						.orElseThrow(() -> new Exception("La factura seleccionada NO es válida"));
-				popupController.edit(new FacturaPopupView(false), v, this::updateData, view::showError);
+				popupController.edit(new FacturaPopupView(""), v, this::updateData, view::showError);
 			}
 		} catch (Exception e) {
 			view.showError(e);
@@ -92,7 +92,7 @@ public class FacturaController extends ManagerController {
 			} else {
 				var v = facDao.getById(selectedId)
 						.orElseThrow(() -> new Exception("La factura seleccionada NO es válida"));
-				popupController.view(new FacturaPopupView(false), v, this::updateData, view::showError);
+				popupController.view(new FacturaPopupView("view"), v, this::updateData, view::showError);
 			}
 		} catch (Exception e) {
 			view.showError(e);
