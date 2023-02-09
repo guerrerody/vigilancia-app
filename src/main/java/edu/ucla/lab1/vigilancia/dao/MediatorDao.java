@@ -33,6 +33,7 @@ public class MediatorDao extends Mediator {
 	
 	public void saveData(DetalleServicio ds) throws SQLException {
 		detServDaoComp.save(ds);
+		
 	}
 	
 }

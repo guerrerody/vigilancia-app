@@ -10,4 +10,5 @@ public abstract class Mediator {
 	public abstract ArrayList<?> getNominaData(String dec, String[] params) throws SQLException;
 	
 	public abstract void saveData(DetalleServicio ds) throws SQLException;
+	
 }

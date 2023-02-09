@@ -1,7 +1,7 @@
 # vigilancia-app
 Proyecto de Sistema de Vigilancia para Laboratorio I de la UCLA.
 
-Integrantes:
+Integrantes: 
 
     Dorieliz Guerrero	C.I. 27.085.237
 	Yaisraylith Gimenez	C.I. 27.198.512
