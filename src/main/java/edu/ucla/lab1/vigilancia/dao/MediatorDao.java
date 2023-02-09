@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import edu.ucla.lab1.vigilancia.model.DetalleServicio;
 
-public class MediatorDao {
+public class MediatorDao extends Mediator {
 	
 	private TurnoDao turDaoComp;
 	private VigilanteDao vigDaoComp;
