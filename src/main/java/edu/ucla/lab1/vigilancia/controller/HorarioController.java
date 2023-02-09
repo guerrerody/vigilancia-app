@@ -1,16 +1,7 @@
 package edu.ucla.lab1.vigilancia.controller;
 
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.YES_OPTION;
-
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
 import edu.ucla.lab1.vigilancia.controller.popup.HorarioPopupController;
 import edu.ucla.lab1.vigilancia.dao.HorarioDao;
-import edu.ucla.lab1.vigilancia.model.Horario;
-import edu.ucla.lab1.vigilancia.view.popup.HorarioPopupView;
 
 public class HorarioController extends ManagerController {
 	private HorarioDao horDao = new HorarioDao();
@@ -24,12 +15,15 @@ public class HorarioController extends ManagerController {
 
 	@Override
 	public void actionAdd() {
+		/*
 		popupController.add(new HorarioPopupView(), this::updateData, view::showError);
+		*/
 		
 	}
 
 	@Override
 	public void actionDelete() {
+		/*
 		int selectedIds[] = view.getSelectedIds();
 		try {
 			if (JOptionPane.showConfirmDialog(null, "¿Confirmación de eliminación de selecionados?", "Eliminar Horarios",
@@ -42,11 +36,12 @@ public class HorarioController extends ManagerController {
 		} catch (Exception e) {
 			view.showError(e);
 		}
-		
+		*/
 	}
 
 	@Override
 	public void actionEdit() {
+		/*
 		try {
 			int selectedId = view.getSelectedId();
 			if (selectedId < 0) {
@@ -59,20 +54,23 @@ public class HorarioController extends ManagerController {
 		} catch (Exception e) {
 			view.showError(e);
 		}
-		
+		*/
 	}
 
 	@Override
 	public void updateData() {
+		/*
 		try {
 			view.setTableData(horDao.getAll());
 		} catch (Exception e) {
 			view.showError(e);
 		}
+		*/
 	}
 
 	@Override
 	public void actionSearch() {
+		/*
 		try {
 			ArrayList<Horario> horario = horDao.searchByKey(view.getCboSearchField().getSelectedItem().toString(),
 					String.valueOf(view.getTxtSearch().getText()));
@@ -80,6 +78,6 @@ public class HorarioController extends ManagerController {
 		} catch (Exception e) {
 			view.showError(e);
 		}
-		
+		*/
 	}
 }

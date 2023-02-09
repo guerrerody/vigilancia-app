@@ -1,8 +1,5 @@
 package edu.ucla.lab1.vigilancia.dao;
 
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.YES_OPTION;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Optional;
