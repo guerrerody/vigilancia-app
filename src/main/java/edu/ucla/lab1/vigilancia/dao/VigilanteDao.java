@@ -39,7 +39,7 @@ public class VigilanteDao extends Dao<Vigilante, Integer> {
             throw new SQLException("El Vigilante está vacío");
         }
         var query = "INSERT INTO vigilante(cedula, nombre, apellido, fec_nac, correo, telf, sueldo_b, fec_ing, status)"
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         var stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, entity.getCedula());

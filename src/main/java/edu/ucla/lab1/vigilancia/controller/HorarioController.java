@@ -1,13 +1,13 @@
 package edu.ucla.lab1.vigilancia.controller;
 
-import edu.ucla.lab1.vigilancia.controller.popup.HorarioPopupController;
-import edu.ucla.lab1.vigilancia.dao.HorarioDao;
+//import edu.ucla.lab1.vigilancia.controller.popup.HorarioPopupController;
+//import edu.ucla.lab1.vigilancia.dao.HorarioDao;
 
 public class HorarioController extends ManagerController {
-	private HorarioDao horDao = new HorarioDao();
+	//private HorarioDao horDao = new HorarioDao();
 
-	HorarioPopupController popupController = new HorarioPopupController();
-	HorarioPopupController horarioPopupController = new HorarioPopupController();
+	//HorarioPopupController popupController = new HorarioPopupController();
+	//HorarioPopupController horarioPopupController = new HorarioPopupController();
 	
 	public HorarioController() {
 		super();
